@@ -6,10 +6,19 @@ import NewsCard1 from "../components/childComponents/NewsCard1.tsx";
 import PopupModal from "../components/childComponents/PopupModal.tsx";
 import ViewMoreButton from "../components/childComponents/ViewMoreButton.tsx";
 
+
+
+
+interface IconState {
+    heart: boolean;
+    share: boolean;
+    save: boolean;
+}
+
 const CoronaUpdates: React.FC = () => {
     const [articles, setArticles] = useState([]);
     const [visibleCards, setVisibleCards] = useState(6);
-    const [iconStates, setIconStates] = useState([]);
+    const [iconStates, setIconStates] = useState<IconState[]>([]);
     const [selectedArticle, setSelectedArticle] = useState(null);
     const topStoriesKey = useSelector((state: RootState) => state.news.apiKeys.topStories);
 
@@ -34,10 +43,10 @@ const CoronaUpdates: React.FC = () => {
 
     const handleViewMore = () => setVisibleCards((prev) => prev + 6);
 
-    const toggleIconState = (index:number, icon:string) => {
+    const toggleIconState = (index: number, icon: keyof IconState) => {
         setIconStates((prev) => {
-            const newStates = [...prev];
-            newStates[index][icon] = !newStates[index][icon];
+            const newStates = [...prev]; // Create a shallow copy
+            newStates[index][icon] = !newStates[index][icon]; // Toggle the specific icon
             return newStates;
         });
     };

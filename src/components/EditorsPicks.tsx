@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store.ts";
+import { RootState } from "../redux/store";
 import axios from "axios";
 import { FaHeart, FaBookmark } from "react-icons/fa";
 import { FaArrowUpFromBracket } from "react-icons/fa6";
 import { IoStar } from "react-icons/io5";
-
 
 interface FormattedArticle {
   image: string;
@@ -25,7 +24,7 @@ const EditorsPicks: React.FC = () => {
     const fetchArticles = async () => {
       try {
         const response = await axios.get(
-          `https://api.nytimes.com/svc/topstories/v2/world.json?api-key=${topStoriesKey}`
+          `https://api.nytimes.com/svc/topstories/v2/arts.json?api-key=${topStoriesKey}`
         );
         const formattedArticles = response.data.results.map((article: any) => ({
           image: article.multimedia ? article.multimedia[0]?.url || "" : "",
@@ -55,9 +54,7 @@ const EditorsPicks: React.FC = () => {
     },
     customPaging: (i: number) => (
       <div
-        className={`h-1 w-8 mt-2 ${
-          i === Math.floor(activeIndex / settings.slidesToShow) ? "bg-red-700" : "bg-red-300"
-        } rounded-full`}
+        className={`h-1 w-8 mt-2 ${i === Math.floor(activeIndex / settings.slidesToShow) ? "bg-red-700" : "bg-red-300"} rounded-full`}
       />
     ),
     appendDots: (dots: React.ReactNode) => (
@@ -101,14 +98,14 @@ const EditorsPicks: React.FC = () => {
           <div
             key={index}
             className="flex justify-center px-2 w-full"
-          > {/* Added horizontal padding between cards */}
-            <div className="flex flex-col md:flex-row max-w-[100%] md:h-[170px] w-[667px] bg-white rounded-md shadow-md overflow-hidden gap-4">
+          >
+            <div className="flex flex-col h-[376px] md:h-[171px] md:flex-row max-w-[100%] w-full bg-white rounded-md shadow-md overflow-hidden gap-4">
               {/* Left Section - Image with overlay */}
               <div className="relative w-full md:w-[40%] h-full">
                 <img
                   src={card.image}
                   alt={card.title}
-                  className="w-full h-full object-cover"
+                  className="w-full md:h-full object-cover h-[170px]"
                 />
                 {/* Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 h-[50%] bg-gradient-to-t from-black to-transparent flex items-center justify-center gap-x-3 opacity-0 hover:opacity-100 transition-opacity duration-300">
@@ -128,7 +125,7 @@ const EditorsPicks: React.FC = () => {
               </div>
 
               {/* Right Section - Text */}
-              <div className="flex flex-col justify-center p-4 w-full md:w-[60%]">
+              <div className="flex flex-col justify-center py-10 px-4 md:px-4 md:py-4 w-full md:w-[60%] overflow-y-scroll md:overflow-hidden md:line-clamp-6 md:items-center md:mb-4">
                 <div className="text-lg font-semibold">{card.title}</div>
                 <div className="text-sm text-gray-600">{card.description}</div>
               </div>
@@ -141,3 +138,4 @@ const EditorsPicks: React.FC = () => {
 };
 
 export default EditorsPicks;
+

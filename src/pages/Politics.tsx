@@ -6,10 +6,18 @@ import NewsCard1 from "../components/childComponents/NewsCard1.tsx";
 import PopupModal from "../components/childComponents/PopupModal.tsx";
 import ViewMoreButton from "../components/childComponents/ViewMoreButton.tsx";
 
+
+
+interface IconState {
+    heart: boolean;
+    share: boolean;
+    save: boolean;
+}
+
 const Politics: React.FC = () => {
     const [articles, setArticles] = useState([]);
     const [visibleCards, setVisibleCards] = useState(6);
-    const [iconStates, setIconStates] = useState([]);
+    const [iconStates, setIconStates] = useState<IconState[]>([]);
     const [selectedArticle, setSelectedArticle] = useState(null);
     const topStoriesKey = useSelector((state: RootState) => state.news.apiKeys.topStories);
 
