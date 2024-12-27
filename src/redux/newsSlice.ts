@@ -20,6 +20,7 @@ export interface Article {
 }
 
 export interface FormattedArticle {
+  uri: string;
   image: string;
   title: string;
   description: string;

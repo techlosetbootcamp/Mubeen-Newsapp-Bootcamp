@@ -1,6 +1,7 @@
 import React from "react";
-import { FaHeart, FaBookmark } from "react-icons/fa";
-import { FaArrowUpFromBracket } from "react-icons/fa6";
+import { CiHeart } from "react-icons/ci";
+import { CiBookmark } from "react-icons/ci";
+import { HiArrowUpTray } from "react-icons/hi2";
 
 interface NewsCardProps {
     article: {
@@ -47,25 +48,31 @@ const NewsCard1: React.FC<NewsCardProps> = ({ article, iconState, onToggleIcon, 
 
             {/* Icons Section */}
             <div className="flex items-center justify-center gap-x-4 text-gray-500 text-sm py-3">
-                <FaHeart
+                <CiHeart
                     size={20}
-                    className={`cursor-pointer ${iconState.heart ? "text-red-700" : "hover:text-red-700"}`}
+                    className={`cursor-pointer ${
+                        iconState.heart ? "text-red-700" : "hover:text-red-700"
+                    }`}
                     onClick={(e) => {
                         e.stopPropagation();
                         onToggleIcon("heart");
                     }}
                 />
-                <FaArrowUpFromBracket
+                <HiArrowUpTray
                     size={20}
-                    className={`cursor-pointer ${iconState.share ? "text-red-700" : "hover:text-red-700"}`}
+                    className={`cursor-pointer ${
+                        iconState.share ? "text-red-700" : "hover:text-red-700"
+                    }`}
                     onClick={(e) => {
                         e.stopPropagation();
                         onToggleIcon("share");
                     }}
                 />
-                <FaBookmark
+                <CiBookmark
                     size={20}
-                    className={`cursor-pointer ${iconState.save ? "text-red-700" : "hover:text-red-700"}`}
+                    className={`cursor-pointer ${
+                        iconState.save ? "text-red-700" : "hover:text-red-700"
+                    }`}
                     onClick={(e) => {
                         e.stopPropagation();
                         onToggleIcon("save");

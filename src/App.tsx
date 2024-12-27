@@ -12,7 +12,6 @@ import Travel from './pages/Travel.tsx';
 import Podcasts from './pages/Podcasts.tsx';
 import Search from './pages/Search.tsx';
 import Footer from './components/Footer.tsx';
-import RouteDetails from './pages/RouteDetails.tsx';
 
 function App() {
   return (
@@ -21,15 +20,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/corona-updates" element={<CoronaUpdates />} />
-        <Route path="/route-details/:ID" element={<RouteDetails />} />
         <Route path="/politics" element={<Politics />} />
         <Route path="/business" element={<Business />} />
         <Route path="/sports" element={<Sports />} />
         <Route path="/world" element={<World />} />
         <Route path="/travel" element={<Travel />} />
         <Route path="/podcasts" element={<Podcasts />} />
-        <Route path="/search" element={<Search />}/>
+        <Route path="/search" element={<Search />} />
       </Routes>
+
       <Footer />
     </>
   );

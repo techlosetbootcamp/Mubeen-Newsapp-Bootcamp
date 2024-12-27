@@ -1,71 +1,127 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { FaHeart } from "react-icons/fa6";
-import { FaArrowUpFromBracket } from "react-icons/fa6";
-import { FaBookmark } from "react-icons/fa6";
+import { CiHeart } from "react-icons/ci";
+import { IoMdHeart } from "react-icons/io";
+import { HiArrowUpTray } from "react-icons/hi2";
+import { CiBookmark } from "react-icons/ci";
+import { IoBookmark } from "react-icons/io5";
 
 interface PopupModalProps {
-    article: {
-        image: string;
-        title: string;
-        description: string;
-    };
-    onClose: () => void;
+  article: {
+    image: string;
+    title: string;
+    description: string;
+  };
+  onClose: () => void;
 }
 
 const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
-    return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg max-w-[400px] max-h-[550px] mx-5 mt-5 md:max-h-full shadow-lg md:w-[90%] md:max-w-[1100px] md:h-[450px] flex flex-col sm:flex-row gap-4 relative items-center overflow-hidden">
-                {/* Close Icon */}
-                <button
-                    className="absolute top-4 right-4 text-gray-500 hover:text-black"
-                    onClick={onClose}
-                >
-                    <AiOutlineClose size={24} />
-                </button>
+  const [iconState, setIconState] = useState({
+    heart: false,
+    share: false,
+    save: false,
+  });
 
-                {/* Left Section - Image */}
-                <div className="w-[279px] h-[347px] md:w-[70%] md:h-[90%]">
-                    <img
-                        src={article.image}
-                        alt="Popup Thumbnail"
-                        className="rounded-lg w-full h-full object-fill p-10"
-                    />
-                </div>
+  const onToggleIcon = (icon: "heart" | "share" | "save") => {
+    setIconState((prevState) => ({
+      ...prevState,
+      [icon]: !prevState[icon],
+    }));
+  };
 
-                {/* Right Section - Content */}
-                <div className="flex flex-col w-full sm:w-[60%] gap-4 p-4 overflow-y-auto max-h-[90%]">
-                    {/* Header */}
-                    <div className="flex items-center justify-between pb-5">
-                        <div className="text-sm font-bold text-red-500">Trending</div>
-                        <div>
-                            <div className="flex gap-x-4 pt-4">
-                                <FaHeart
-                                    size={20}
-                                    className="cursor-pointer text-gray-500 hover:text-red-700"
-                                />
-                                <FaArrowUpFromBracket
-                                    size={20}
-                                    className="cursor-pointer text-gray-500 hover:text-red-700"
-                                />
-                                <FaBookmark
-                                    size={20}
-                                    className="cursor-pointer text-gray-500 hover:text-red-700"
-                                />
-                            </div>
-                        </div>
-                    </div>
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg max-w-[400px] max-h-[550px] mx-5 mt-5 md:max-h-full shadow-lg md:w-[90%] md:max-w-[1100px] md:h-[450px] flex flex-col sm:flex-row gap-4 relative items-center overflow-hidden">
+        {/* Close Icon */}
+        <button
+          className="absolute top-4 right-4 text-gray-500 hover:text-black"
+          onClick={onClose}
+        >
+          <AiOutlineClose size={24} />
+        </button>
 
-                    {/* Title */}
-                    <div className="text-2xl font-bold">{article.title}</div>
-
-                    {/* Description */}
-                    <div className="text-md">{article.description}</div>
-                </div>
-            </div>
+        {/* Left Section - Image */}
+        <div className="w-[279px] h-[347px] md:w-[70%] md:h-[90%]">
+          <img
+            src={article.image}
+            alt="Popup Thumbnail"
+            className="rounded-lg w-full h-full object-fill p-10"
+          />
         </div>
-    );
+
+        {/* Right Section - Content */}
+        <div className="flex flex-col w-full sm:w-[60%] gap-4 p-4 overflow-y-auto max-h-[90%]">
+          {/* Header */}
+          <div className="flex items-center justify-between pb-5">
+            <div className="text-sm font-bold text-red-500">Trending</div>
+            <div>
+              <div className="flex gap-x-4 pt-4">
+                {/* Heart Icon */}
+                {iconState.heart ? (
+                  <IoMdHeart
+                    size={20}
+                    className="cursor-pointer text-red-700"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleIcon("heart");
+                    }}
+                  />
+                ) : (
+                  <CiHeart
+                    size={20}
+                    className="cursor-pointer hover:text-red-700"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleIcon("heart");
+                    }}
+                  />
+                )}
+
+                {/* Share Icon */}
+                <HiArrowUpTray
+                  size={20}
+                  className={`cursor-pointer ${
+                    iconState.share ? "text-red-700" : "hover:text-red-700"
+                  }`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onToggleIcon("share");
+                  }}
+                />
+
+                {/* Bookmark Icon */}
+                {iconState.save ? (
+                  <IoBookmark
+                    size={20}
+                    className="cursor-pointer text-red-700"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleIcon("save");
+                    }}
+                  />
+                ) : (
+                  <CiBookmark
+                    size={20}
+                    className="cursor-pointer hover:text-red-700"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleIcon("save");
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Title */}
+          <div className="text-2xl font-bold">{article.title}</div>
+
+          {/* Description */}
+          <div className="text-md">{article.description}</div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default PopupModal;

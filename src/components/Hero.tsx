@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import axios from "axios";
-import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { FaArrowUpFromBracket } from "react-icons/fa6";
-import { FaBookmark } from "react-icons/fa";
+import { CiHeart } from "react-icons/ci";
+import { IoMdHeart } from "react-icons/io";
+import { HiArrowUpTray } from "react-icons/hi2";
+import { CiBookmark } from "react-icons/ci";
+import { IoBookmark } from "react-icons/io5";
+
+
+
 
 interface Article {
   image: string;
@@ -15,8 +20,15 @@ interface Article {
 }
 
 function Hero() {
-  const topStoriesKey = useSelector((state: RootState) => state.news.apiKeys.topStories);
+  const topStoriesKey = useSelector(
+    (state: RootState) => state.news.apiKeys.topStories
+  );
   const [heroArticle, setHeroArticle] = useState<Article | null>(null);
+
+  // States to handle icon states (active or not)
+  const [isHearted, setIsHearted] = useState(false);
+  const [isShared, setIsShared] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   useEffect(() => {
     const fetchHeroArticle = async () => {
@@ -67,7 +79,9 @@ function Hero() {
 
           {/* Text */}
           <div className="relative p-4">
-            <h1 className="text-white text-2xl font-bold font-serif">{heroArticle.title}</h1>
+            <h1 className="text-white text-2xl font-bold font-serif">
+              {heroArticle.title}
+            </h1>
           </div>
         </div>
       </div>
@@ -78,23 +92,49 @@ function Hero() {
         <div className="flex justify-between items-center">
           <h1 className="text-lg text-red-600 font-bold">Trending</h1>
           <div className="flex gap-4 text-gray-600">
-            <MdOutlineFavoriteBorder
+            {/* Conditional rendering for Heart icon */}
+            {isHearted ? (
+              <IoMdHeart
+                size={24}
+                className="cursor-pointer text-red-700"
+                onClick={() => setIsHearted(false)} // Toggle off when clicked again
+              />
+            ) : (
+              <CiHeart
+                size={24}
+                className="cursor-pointer "
+                onClick={() => setIsHearted(true)} // Toggle on when clicked
+              />
+            )}
+
+            {/* Conditional rendering for Share icon */}
+            <HiArrowUpTray
               size={24}
-              className="cursor-pointer hover:text-red-500"
+              className={`cursor-pointer ${isShared ? "text-red-700" : ""}`}
+              onClick={() => setIsShared((prev) => !prev)}
             />
-            <FaArrowUpFromBracket
-              size={24}
-              className="cursor-pointer hover:text-blue-500"
-            />
-            <FaBookmark
-              size={24}
-              className="cursor-pointer hover:text-green-500"
-            />
+
+            {/* Conditional rendering for Bookmark icon */}
+            {isBookmarked ? (
+              <IoBookmark
+                size={24}
+                className="cursor-pointer text-red-700"
+                onClick={() => setIsBookmarked(false)} // Toggle off when clicked again
+              />
+            ) : (
+              <CiBookmark
+                size={24}
+                className="cursor-pointer"
+                onClick={() => setIsBookmarked(true)} // Toggle on when clicked
+              />
+            )}
           </div>
         </div>
 
         {/* Heading and description text */}
-        <h1 className="text-xl md:text-2xl font-semibold tracking-wide">{heroArticle.title}</h1>
+        <h1 className="text-xl md:text-2xl font-semibold tracking-wide">
+          {heroArticle.title}
+        </h1>
         <p className="text-gray-600">{heroArticle.description}</p>
         <p className="text-sm text-gray-500">
           {heroArticle.time} | {heroArticle.author}
@@ -105,5 +145,4 @@ function Hero() {
 }
 
 export default Hero;
-
 

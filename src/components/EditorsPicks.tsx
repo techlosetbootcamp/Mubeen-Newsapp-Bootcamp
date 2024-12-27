@@ -125,9 +125,9 @@ const EditorsPicks: React.FC = () => {
               </div>
 
               {/* Right Section - Text */}
-              <div className="flex flex-col justify-center py-10 px-4 md:px-4 md:py-4 w-full md:w-[60%] overflow-y-scroll md:overflow-hidden md:line-clamp-6 md:items-center md:mb-4">
+              <div className="flex flex-col justify-center py-10 px-4 md:px-4 md:py-4 w-full md:w-[60%] md:overflow-hidden md:line-clamp-6 md:items-center md:mb-4">
                 <div className="text-lg font-semibold">{card.title}</div>
-                <div className="text-sm text-gray-600">{card.description}</div>
+                <div className="text-sm text-gray-600 line-clamp-3 md:line-clamp-none">{card.description}</div>
               </div>
             </div>
           </div>

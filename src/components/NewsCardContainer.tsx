@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState } from "../redux/store.ts";
 import axios from "axios";
-import Header from "../components/childComponents/Header.tsx";
-import NewsCard1 from "../components/childComponents/NewsCard1.tsx";
-import PopupModal from "../components/childComponents/PopupModal.tsx";
-import ViewMoreButton from "../components/childComponents/ViewMoreButton.tsx"
-const NewsCard: React.FC = () => {
+import Header from "./childComponents/Header.tsx";
+import NewsCard1 from "./childComponents/NewsCard1.tsx";
+import PopupModal from "./childComponents/PopupModal.tsx";
+import ViewMoreButton from "./childComponents/ViewMoreButton.tsx"
+
+
+
+
+interface IconState {
+    heart: boolean;
+    share: boolean;
+    save: boolean;
+}
+
+
+const NewsCardContainer: React.FC = () => {
     const [articles, setArticles] = useState([]);
     const [visibleCards, setVisibleCards] = useState(6);
-    const [iconStates, setIconStates] = useState([]);
+    const [iconStates, setIconStates] = useState<IconState[]>([]);
     const [selectedArticle, setSelectedArticle] = useState(null);
     const topStoriesKey = useSelector((state: RootState) => state.news.apiKeys.topStories);
 
@@ -68,4 +79,4 @@ const NewsCard: React.FC = () => {
     );
 };
 
-export default NewsCard;
+export default NewsCardContainer;

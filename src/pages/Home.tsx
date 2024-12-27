@@ -1,8 +1,8 @@
 import React from 'react';
 import Hero from '../components/Hero.tsx';
 import BreakingNews from '../components/BreakingNews.tsx';
-import NewsCard from '../components/NewsCard.tsx';
 import EditorsPicks from '../components/EditorsPicks.tsx';
+import NewsCardContainer from '../components/NewsCardContainer.tsx';
 
 function Home() {
   return (
@@ -10,7 +10,7 @@ function Home() {
       {/* Components */}
       <Hero />
       <BreakingNews />
-      <NewsCard />
+      <NewsCardContainer />
       <EditorsPicks />
     </div>
   );
