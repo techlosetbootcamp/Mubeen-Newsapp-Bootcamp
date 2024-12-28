@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery, setFilteredArticles, setIconStates, setIconState, setSelectedArticle } from "../redux/newsSlice.ts";
 import { RootState } from "../redux/store.ts";
 import NewsCard1 from "../components/childComponents/NewsCard1.tsx";
 import PopupModal from "../components/childComponents/PopupModal.tsx";
-import ViewMoreButton from "../components/childComponents/ViewMoreButton.tsx"
+import ViewMoreButton from "../components/childComponents/ViewMoreButton.tsx";
 import SearchBar from "../components/childComponents/SearchBar.tsx";
 
 const Search: React.FC = () => {
@@ -16,11 +16,7 @@ const Search: React.FC = () => {
     const topStoriesKey = useSelector((state: RootState) => state.news.apiKeys.topStories);
     const searchKey = useSelector((state: RootState) => state.news.apiKeys.search);
 
-    useEffect(() => {
-        fetchTopStories();
-    }, [dispatch]);
-
-    const fetchTopStories = async () => {
+    const fetchTopStories = useCallback(async () => {
         try {
             const response = await axios.get(`https://api.nytimes.com/svc/topstories/v2/world.json?api-key=${topStoriesKey}`);
             const formattedArticles = response.data.results.map((article: any) => ({
@@ -36,25 +32,27 @@ const Search: React.FC = () => {
         } catch (error) {
             console.error("Error fetching top stories:", error);
         }
-    };
+    }, [dispatch, topStoriesKey]);
 
-    const fetchSearchResults = async (query: string) => {
-        try {
-            const output = await axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${query}&api-key=${searchKey}`);
-            const response = output.data.response
-            const formattedArticles = response.docs.map((article: any) => ({
-                image: article.multimedia ? `https://www.nytimes.com/${article.multimedia[0].url}` : "",
-                title: article.headline.main,
-                description: article.abstract || "No description available.",
-                time: new Date(article.pub_date).toLocaleTimeString(),
-                author: article.byline?.original || "Unknown Author",
-            }));
+    const fetchSearchResults = useCallback(
+        async (query: string) => {
+            try {
+                const response = await axios.get(`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${query}&api-key=${searchKey}`);
+                const formattedArticles = response.data.response.docs.map((article: any) => ({
+                    image: article.multimedia ? `https://www.nytimes.com/${article.multimedia[0].url}` : "",
+                    title: article.headline.main,
+                    description: article.abstract || "No description available.",
+                    time: new Date(article.pub_date).toLocaleTimeString(),
+                    author: article.byline?.original || "Unknown Author",
+                }));
 
-            dispatch(setFilteredArticles(formattedArticles));
-        } catch (error) {
-            console.error("Error fetching search results:", error);
-        }
-    };
+                dispatch(setFilteredArticles(formattedArticles));
+            } catch (error) {
+                console.error("Error fetching search results:", error);
+            }
+        },
+        [dispatch, searchKey]
+    );
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setSearchQuery(e.target.value));
@@ -68,11 +66,15 @@ const Search: React.FC = () => {
     };
 
     useEffect(() => {
+        fetchTopStories();
+    }, [fetchTopStories]);
+
+    useEffect(() => {
         if (!searchQuery.trim()) {
             setIsSearching(false);
             fetchTopStories();
         }
-    }, [searchQuery]);
+    }, [fetchTopStories, searchQuery]);
 
     const handleViewMore = () => {
         setVisibleCards((prev) => prev + 6);
@@ -94,11 +96,7 @@ const Search: React.FC = () => {
         <div className="bg-gray-200 min-h-screen w-full flex flex-col gap-3 lg:px-20">
             <div className="flex flex-col items-center justify-center mt-[160px]">
                 <h1 className="text-2xl font-serif font-extrabold">Search News</h1>
-                <SearchBar
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    onKeyDown={handleKeyDown}
-                />
+                <SearchBar value={searchQuery} onChange={handleSearchChange} onKeyDown={handleKeyDown} />
             </div>
             <div className="mt-20">
                 <div className="bg-white w-full h-[54px] flex items-center justify-start px-5 font-bold">
@@ -125,10 +123,3 @@ const Search: React.FC = () => {
 };
 
 export default Search;
-
-
-
-
-
-
-
