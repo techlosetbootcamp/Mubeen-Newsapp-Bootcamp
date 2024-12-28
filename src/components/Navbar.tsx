@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 import { FiUser } from 'react-icons/fi';
 import { CiSearch } from 'react-icons/ci';
-import { RxHamburgerMenu } from 'react-icons/rx';
+import { CiTextAlignRight } from "react-icons/ci";
 import logo from '../assets/logo.png';
 
 function Navbar() {
@@ -66,7 +66,7 @@ function Navbar() {
         />
 
         {/* Hamburger Menu */}
-        <RxHamburgerMenu
+        <CiTextAlignRight
           size={20}
           className="cursor-pointer md:hidden"
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
@@ -74,39 +74,50 @@ function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="absolute top-[80px] left-0 w-full bg-white shadow-md p-4 md:hidden z-40">
-          <div className="flex flex-col gap-y-4">
-            {[
-              { name: 'Corona Updates', path: '/corona-updates' },
-              { name: 'Politics', path: '/politics' },
-              { name: 'Business', path: '/business' },
-              { name: 'Sports', path: '/sports' },
-              { name: 'World', path: '/world' },
-              { name: 'Travel', path: '/travel' },
-              { name: 'Podcasts', path: '/podcasts' },
-            ].map((route) => (
-              <div key={route.name} className="flex items-center gap-2">
-                {activeRoute === route.name && (
-                  <div className="h-2 w-2 bg-red-700 rounded-full" />
-                )}
-                <Link
-                  to={route.path}
-                  onClick={() => {
-                    handleRouteClick(route.name);
-                    setMobileMenuOpen(false); // Close the menu when an item is selected
-                  }}
-                  className={`${
-                    activeRoute === route.name ? 'font-bold text-gray-800' : ''
-                  }`}
-                >
-                  {route.name}
-                </Link>
-              </div>
-            ))}
-          </div>
+      <div
+        className={`fixed top-0 left-0 h-full bg-white shadow-lg p-4 z-50 w-[80%] max-w-[300px] transform transition-transform duration-300 ${
+          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        {/* Close Button */}
+        <button
+          className="absolute top-4 right-4 text-gray-500 hover:text-black"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          Close
+        </button>
+
+        {/* Menu Items */}
+        <div className="flex flex-col gap-y-4 mt-10">
+          {[
+            { name: 'Corona Updates', path: '/corona-updates' },
+            { name: 'Politics', path: '/politics' },
+            { name: 'Business', path: '/business' },
+            { name: 'Sports', path: '/sports' },
+            { name: 'World', path: '/world' },
+            { name: 'Travel', path: '/travel' },
+            { name: 'Podcasts', path: '/podcasts' },
+          ].map((route) => (
+            <div key={route.name} className="flex items-center gap-2">
+              {activeRoute === route.name && (
+                <div className="h-2 w-2 bg-red-700 rounded-full" />
+              )}
+              <Link
+                to={route.path}
+                onClick={() => {
+                  handleRouteClick(route.name);
+                  setMobileMenuOpen(false); // Close menu on selection
+                }}
+                className={`${
+                  activeRoute === route.name ? 'font-bold text-gray-800' : ''
+                }`}
+              >
+                {route.name}
+              </Link>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
