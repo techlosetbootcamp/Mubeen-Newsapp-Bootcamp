@@ -11,7 +11,7 @@ interface PopupModalProps {
     image: string;
     title: string;
     description: string;
-  };
+  } | null;
   onClose: () => void;
 }
 
@@ -29,10 +29,11 @@ const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
     }));
   };
 
+  if (!article) return null;
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg max-w-[400px] max-h-[550px] mx-5 mt-5 md:max-h-full shadow-lg md:w-[90%] md:max-w-[1100px] md:h-[450px] flex flex-col sm:flex-row gap-4 relative items-center overflow-hidden">
-        {/* Close Icon */}
         <button
           className="absolute top-4 right-4 text-gray-500 hover:text-black"
           onClick={onClose}
@@ -40,7 +41,6 @@ const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
           <AiOutlineClose size={24} />
         </button>
 
-        {/* Left Section - Image */}
         <div className="w-[279px] h-[347px] md:w-[70%] md:h-[90%]">
           <img
             src={article.image}
@@ -49,14 +49,11 @@ const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
           />
         </div>
 
-        {/* Right Section - Content */}
         <div className="flex flex-col w-full sm:w-[60%] gap-4 p-4 overflow-y-auto max-h-[90%]">
-          {/* Header */}
           <div className="flex items-center justify-between pb-5">
             <div className="text-sm font-bold text-red-500">Trending</div>
             <div>
               <div className="flex gap-x-4 pt-4">
-                {/* Heart Icon */}
                 {iconState.heart ? (
                   <IoMdHeart
                     size={20}
@@ -77,7 +74,6 @@ const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
                   />
                 )}
 
-                {/* Share Icon */}
                 <HiArrowUpTray
                   size={20}
                   className={`cursor-pointer ${
@@ -89,7 +85,6 @@ const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
                   }}
                 />
 
-                {/* Bookmark Icon */}
                 {iconState.save ? (
                   <IoBookmark
                     size={20}
@@ -113,10 +108,8 @@ const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
             </div>
           </div>
 
-          {/* Title */}
           <div className="text-2xl font-bold">{article.title}</div>
 
-          {/* Description */}
           <div className="text-md">{article.description}</div>
         </div>
       </div>

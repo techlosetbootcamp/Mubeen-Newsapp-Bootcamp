@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState } from "../redux/store.ts";
 import axios from "axios";
 import { CiHeart } from "react-icons/ci";
 import { IoMdHeart } from "react-icons/io";
 import { HiArrowUpTray } from "react-icons/hi2";
 import { CiBookmark } from "react-icons/ci";
 import { IoBookmark } from "react-icons/io5";
-
-
-
-
-interface Article {
-  image: string;
-  title: string;
-  description: string;
-  time: string;
-  author: string;
-}
+import { Article } from "../redux/newsSlice";
 
 function Hero() {
   const topStoriesKey = useSelector(
@@ -25,7 +15,6 @@ function Hero() {
   );
   const [heroArticle, setHeroArticle] = useState<Article | null>(null);
 
-  // States to handle icon states (active or not)
   const [isHearted, setIsHearted] = useState(false);
   const [isShared, setIsShared] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -34,18 +23,20 @@ function Hero() {
     const fetchHeroArticle = async () => {
       try {
         const response = await axios.get(
-          `https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=${topStoriesKey}`
+          `https://api.nytimes.com/svc/topstories/v2/us.json?api-key=${topStoriesKey}`
         );
 
-        const articles = response.data.results.map((article: any) => ({
-          image: article.multimedia ? article.multimedia[0]?.url || "" : "",
+        const articles = response.data.results.map((article: Article) => ({
+          image:
+            article.multimedia && article.multimedia[0]
+              ? article.multimedia[0].url
+              : "",
           title: article.title,
           description: article.abstract,
           time: new Date(article.published_date).toLocaleTimeString(),
           author: article.byline || "Unknown Author",
         }));
 
-        // Set the first article as the Hero content
         setHeroArticle(articles[0]);
       } catch (error) {
         console.error("Error fetching news data:", error);
@@ -61,7 +52,6 @@ function Hero() {
 
   return (
     <div className="relative w-full md:flex md:gap-10 md:my-10 md:justify-center md:items-center">
-      {/* Image */}
       <div className="relative">
         <img
           src={heroArticle.image}
@@ -69,15 +59,12 @@ function Hero() {
           className="w-full max:h-[456px] md:max-h-[456px] md:rounded-lg shadow-lg object-cover"
         />
 
-        {/* Gradient overlay and text for mobile */}
         <div className="absolute bottom-0 left-0 right-0 md:hidden">
-          {/* Gradient overlay */}
           <div
             className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"
             style={{ height: "110%" }}
           ></div>
 
-          {/* Text */}
           <div className="relative p-4">
             <h1 className="text-white text-2xl font-bold font-serif">
               {heroArticle.title}
@@ -86,52 +73,46 @@ function Hero() {
         </div>
       </div>
 
-      {/* Desktop Content */}
       <div className="hidden md:flex flex-col gap-5 md:gap-8 md:w-[40%]">
-        {/* Trending text and icons */}
         <div className="flex justify-between items-center">
           <h1 className="text-lg text-red-600 font-bold">Trending</h1>
           <div className="flex gap-4 text-gray-600">
-            {/* Conditional rendering for Heart icon */}
             {isHearted ? (
               <IoMdHeart
                 size={24}
                 className="cursor-pointer text-red-700"
-                onClick={() => setIsHearted(false)} // Toggle off when clicked again
+                onClick={() => setIsHearted(false)}
               />
             ) : (
               <CiHeart
                 size={24}
                 className="cursor-pointer "
-                onClick={() => setIsHearted(true)} // Toggle on when clicked
+                onClick={() => setIsHearted(true)}
               />
             )}
 
-            {/* Conditional rendering for Share icon */}
             <HiArrowUpTray
               size={24}
               className={`cursor-pointer ${isShared ? "text-red-700" : ""}`}
               onClick={() => setIsShared((prev) => !prev)}
             />
 
-            {/* Conditional rendering for Bookmark icon */}
             {isBookmarked ? (
               <IoBookmark
                 size={24}
                 className="cursor-pointer text-red-700"
-                onClick={() => setIsBookmarked(false)} // Toggle off when clicked again
+                onClick={() => setIsBookmarked(false)}
               />
             ) : (
               <CiBookmark
                 size={24}
                 className="cursor-pointer"
-                onClick={() => setIsBookmarked(true)} // Toggle on when clicked
+                onClick={() => setIsBookmarked(true)}
               />
             )}
           </div>
         </div>
 
-        {/* Heading and description text */}
         <h1 className="text-xl md:text-2xl font-semibold tracking-wide">
           {heroArticle.title}
         </h1>
@@ -145,4 +126,3 @@ function Hero() {
 }
 
 export default Hero;
-

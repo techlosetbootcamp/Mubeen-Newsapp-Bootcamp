@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Multimedia {
   url: string;
@@ -12,11 +12,18 @@ export interface Multimedia {
 }
 
 export interface Article {
+  uri: string;
   title: string;
+  description: string;
   abstract: string;
   published_date: string;
-  byline: string;
+  byline?: { original: string };
   multimedia: Multimedia[] | null;
+  image: string;
+  author: string;
+  time: string;
+  headline: { main: string };
+  pub_date: string;
 }
 
 export interface FormattedArticle {
@@ -46,18 +53,18 @@ export interface NewsState {
 }
 
 const initialState: NewsState = {
-  searchQuery: '',
+  searchQuery: "",
   filteredArticles: [],
   iconStates: [],
   selectedArticle: null,
   apiKeys: {
-    topStories: '',
-    search: '',
+    topStories: "",
+    search: "",
   },
 };
 
 const newsSlice = createSlice({
-  name: 'news',
+  name: "news",
   initialState,
   reducers: {
     setSearchQuery: (state, action: PayloadAction<string>) => {
@@ -66,14 +73,20 @@ const newsSlice = createSlice({
     setFilteredArticles: (state, action: PayloadAction<FormattedArticle[]>) => {
       state.filteredArticles = action.payload;
     },
-    setIconState: (state, action: PayloadAction<{ index: number; icon: keyof IconState }>) => {
+    setIconState: (
+      state,
+      action: PayloadAction<{ index: number; icon: keyof IconState }>
+    ) => {
       const { index, icon } = action.payload;
       state.iconStates[index][icon] = !state.iconStates[index][icon];
     },
     setIconStates: (state, action: PayloadAction<IconState[]>) => {
       state.iconStates = action.payload;
     },
-    setSelectedArticle: (state, action: PayloadAction<FormattedArticle | null>) => {
+    setSelectedArticle: (
+      state,
+      action: PayloadAction<FormattedArticle | null>
+    ) => {
       state.selectedArticle = action.payload;
     },
   },

@@ -1,15 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
-import newsReducer, { NewsState } from './newsSlice.ts';
+import { configureStore } from "@reduxjs/toolkit";
+import newsReducer, { NewsState } from "./newsSlice.ts";
 
-// Define the initial state for the news slice, including API keys and other properties
 const initialNewsState: NewsState = {
-  searchQuery: '',
+  searchQuery: "",
   filteredArticles: [],
   iconStates: [],
   selectedArticle: null,
   apiKeys: {
-    topStories: "kzoxGuCiCSr7YVhGimt0gsmRkjtexpui",
-    search: "nPEnGDDecHkwLBmamcT6IyqsBotQ8GYa",
+    topStories: process.env?.REACT_APP_TOP_STORIES_API_KEY|| "",
+    search: process.env?.REACT_APP_TOP_STORIES_API_SEARCH_KEY || "",
   },
 };
 
@@ -26,5 +25,3 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export default store;
-
-
