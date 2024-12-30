@@ -7,7 +7,7 @@ import { IoMdHeart } from "react-icons/io";
 import { HiArrowUpTray } from "react-icons/hi2";
 import { CiBookmark } from "react-icons/ci";
 import { IoBookmark } from "react-icons/io5";
-import { Article } from "../redux/newsSlice";
+import { Article } from "../redux/newsSlice.ts";
 
 function Hero() {
   const topStoriesKey = useSelector(

@@ -1,3 +1,4 @@
+
 import { configureStore } from "@reduxjs/toolkit";
 import newsReducer, { NewsState } from "./newsSlice.ts";
 
