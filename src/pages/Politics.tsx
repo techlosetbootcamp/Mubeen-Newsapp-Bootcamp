@@ -1,83 +1,59 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store.ts";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../redux/store.ts";
+import { fetchNews } from "../redux/newsSlice.ts";
 import NewsCard from "../components/NewsCard.tsx";
-import PopupModal from "../components/PopupModal.tsx";
 import ViewMoreButton from "../components/ViewMoreButton.tsx";
-
-interface IconState {
-  heart: boolean;
-  share: boolean;
-  save: boolean;
-}
+import PopupModal from "../components/PopupModal.tsx";
+import { FormattedArticle } from "../types/newsSlice.ts";
 
 const Politics: React.FC = () => {
-  const [articles, setArticles] = useState([]);
-  const [visibleCards, setVisibleCards] = useState(6);
-  const [iconStates, setIconStates] = useState<IconState[]>([]);
-  const [selectedArticle, setSelectedArticle] = useState(null);
-  const topStoriesKey = useSelector(
-    (state: RootState) => state.news.apiKeys.topStories
+  const dispatch = useDispatch<AppDispatch>();
+  const { filteredArticles, loading } = useSelector(
+    (state: RootState) => state.news
   );
+  const [visibleCards, setVisibleCards] = React.useState(6);
+  const [selectedArticle, setSelectedArticle] =
+    React.useState<FormattedArticle | null>(null);
 
   useEffect(() => {
-    const fetchNews = async () => {
-      const response = await axios.get(
-        `https://api.nytimes.com/svc/topstories/v2/politics.json?api-key=${topStoriesKey}`
-      );
-      const formattedArticles = response.data.results.map((article) => ({
-        image: article.multimedia?.[0]?.url || "",
-        title: article.title,
-        description: article.abstract,
-        time: new Date(article.published_date).toLocaleTimeString(),
-        author: article.byline || "Unknown Author",
-      }));
-      setArticles(formattedArticles);
-      setIconStates(
-        formattedArticles.map(() => ({
-          heart: false,
-          share: false,
-          save: false,
-        }))
-      );
-    };
-
-    fetchNews();
-  }, [topStoriesKey]);
+    dispatch(fetchNews("politics"));
+  }, []);
 
   const handleViewMore = () => setVisibleCards((prev) => prev + 6);
 
-  const toggleIconState = (index: number, icon: string) => {
-    setIconStates((prev) => {
-      const newStates = [...prev];
-      newStates[index][icon] = !newStates[index][icon];
-      return newStates;
-    });
-  };
-
   return (
     <div className="md:mt-20 md:mx-20 m-2">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {articles.slice(0, visibleCards).map((article, index) => (
-          <NewsCard
-            key={index}
-            article={article}
-            iconState={iconStates[index]}
-            onToggleIcon={(icon) => toggleIconState(index, icon)}
-            onClick={() => setSelectedArticle(article)}
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="w-16 h-16 border-4 border-red-700 border-dashed rounded-full animate-spin"></div>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredArticles.slice(0, visibleCards).map((article, index) => (
+              <NewsCard
+                key={index}
+                article={article}
+                onClick={() => setSelectedArticle(article)}
+                iconState={{ heart: false, share: false, save: false }}
+                onToggleIcon={(icon) => {
+                  return icon;
+                }}
+              />
+            ))}
+          </div>
+          <ViewMoreButton
+            onClick={handleViewMore}
+            isVisible={visibleCards < filteredArticles.length}
           />
-        ))}
-      </div>
-      <ViewMoreButton
-        onClick={handleViewMore}
-        isVisible={visibleCards < articles.length}
-      />
-      {selectedArticle && (
-        <PopupModal
-          article={selectedArticle}
-          onClose={() => setSelectedArticle(null)}
-        />
+          {selectedArticle && (
+            <PopupModal
+              article={selectedArticle}
+              onClose={() => setSelectedArticle(null)}
+            />
+          )}
+        </>
       )}
     </div>
   );

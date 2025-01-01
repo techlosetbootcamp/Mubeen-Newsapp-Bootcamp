@@ -4,6 +4,7 @@ import { FaTwitter } from "react-icons/fa";
 import { FaRedditAlien } from "react-icons/fa";
 import { MdFacebook } from "react-icons/md";
 import { SiNbc } from "react-icons/si";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -29,34 +30,34 @@ function Footer() {
         </div>
         <div className="flex gap-8 md:gap-x-20">
           {/* Wrap each icon with an anchor tag for navigation */}
-          <a
-            href="https://www.techloset.com/"
+          <Link
+            to="https://www.techloset.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <HiWifi size={25} className="mt-2 cursor-pointer" />
-          </a>
-          <a
-            href="https://x.com/techloset"
+          </Link>
+          <Link
+            to="https://x.com/techloset"
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaTwitter size={25} className="mt-2 cursor-pointer" />
-          </a>
-          <a
-            href="https://www.techloset.com/"
+          </Link>
+          <Link
+            to="https://www.techloset.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <FaRedditAlien size={25} className="mt-2 cursor-pointer" />
-          </a>
-          <a
-            href="https://www.facebook.com/techloset/"
+          </Link>
+          <Link
+            to="https://www.facebook.com/techloset/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <MdFacebook size={25} className="mt-2 cursor-pointer" />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

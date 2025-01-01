@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { CiViewTable } from "react-icons/ci";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import useNavbar from "./navbar/useNavbar.ts";
 
 const Header: React.FC = () => {
   const [activeTab, setActiveTab] = useState("Latest Stories");
-  const navigate = useNavigate();
+
+  const { navigate } = useNavbar();
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -14,17 +16,17 @@ const Header: React.FC = () => {
     } else if (tab === "Opinion") {
       navigate("/podcasts");
     } else if (tab === "Health") {
-      navigate("/corona-virus");
+      navigate("/corona-updates");
     }
   };
 
   return (
-    <div className="bg-white w-full h-[54px] flex items-center justify-between px-4">
+    <div className="bg-white w-full md:h-[54px] h-auto flex items-center justify-between px-4">
       <div className="flex gap-x-5 font-semibold">
         {["Latest Stories", "Opinion", "Health"].map((tab) => (
-          <a
+          <Link
             key={tab}
-            href="#"
+            to="#"
             className={`relative pb-2 ${
               activeTab === tab ? "font-bold text-black" : "text-gray-600"
             }`}
@@ -37,10 +39,10 @@ const Header: React.FC = () => {
             {activeTab === tab && (
               <span className="absolute bottom-0 left-0 w-full h-[2px] bg-red-700" />
             )}
-          </a>
+          </Link>
         ))}
       </div>
-      <CiViewTable size={20} />
+      <CiViewTable size={20} className="hidden md:flex" />
     </div>
   );
 };

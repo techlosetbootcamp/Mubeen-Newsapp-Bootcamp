@@ -6,14 +6,14 @@ import { FormattedArticle } from "../redux/newsSlice.ts";
 
 interface NewsCardProps {
   article: FormattedArticle;
-  iconState: { heart: boolean; share: boolean; save: boolean };
+  iconState?: { heart: boolean; share: boolean; save: boolean }; // Made optional
   onToggleIcon: (icon: "heart" | "share" | "save") => void;
   onClick: () => void;
 }
 
 const NewsCard: React.FC<NewsCardProps> = ({
   article,
-  iconState,
+  iconState = { heart: false, share: false, save: false }, // Default values
   onToggleIcon,
   onClick,
 }) => {
@@ -24,7 +24,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
     >
       <div className="flex items-center">
         <img
-          src={article.image}
+          src={article?.image}
           alt="News Thumbnail"
           className="w-full h-[200px] rounded-t-sm object-cover"
         />
@@ -39,7 +39,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
 
         <div className="flex md:flex-row flex-col items-center justify-center gap-x-2 gap-y-2 text-sm p-2 mb-4">
           <time className="font-medium">{article.time}</time>
-          <p>{article.author}</p>
+          <p className="line-clamp-1 md:line-clamp-none">{article.author}</p>
         </div>
       </div>
 

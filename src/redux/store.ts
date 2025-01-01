@@ -1,24 +1,17 @@
-
 import { configureStore } from "@reduxjs/toolkit";
-import newsReducer, { NewsState } from "./newsSlice.ts";
-
-const initialNewsState: NewsState = {
-  searchQuery: "",
-  filteredArticles: [],
-  iconStates: [],
-  selectedArticle: null,
-  apiKeys: {
-    topStories: process.env?.REACT_APP_TOP_STORIES_API_KEY|| "",
-    search: process.env?.REACT_APP_TOP_STORIES_API_SEARCH_KEY || "",
-  },
-};
+import newsReducer from "./newsSlice.ts";
+import heroReducer from "./heroSlice.ts";
+import breakingNewsReducer from "./breakingNewsSlice.ts";
+import topStoriesReducer from "./topStoriesSlice.ts";
+import editorsPicksReducer from "./editorPicksSlice.ts";
 
 const store = configureStore({
   reducer: {
     news: newsReducer,
-  },
-  preloadedState: {
-    news: initialNewsState,
+    hero: heroReducer,
+    breakingNews: breakingNewsReducer,
+    topStories: topStoriesReducer,
+    editorPicks: editorsPicksReducer,
   },
 });
 

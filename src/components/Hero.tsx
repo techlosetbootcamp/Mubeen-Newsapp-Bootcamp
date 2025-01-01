@@ -1,52 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store.ts";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../redux/store.ts";
+import { fetchHeroArticle, setHeroIconState } from "../redux/heroSlice.ts";
 import { CiHeart } from "react-icons/ci";
 import { IoMdHeart } from "react-icons/io";
 import { HiArrowUpTray } from "react-icons/hi2";
 import { CiBookmark } from "react-icons/ci";
 import { IoBookmark } from "react-icons/io5";
-import { Article } from "../redux/newsSlice.ts";
+import axios from "axios";
 
-function Hero() {
-  const topStoriesKey = useSelector(
-    (state: RootState) => state.news.apiKeys.topStories
-  );
-  const [heroArticle, setHeroArticle] = useState<Article | null>(null);
-
-  const [isHearted, setIsHearted] = useState(false);
-  const [isShared, setIsShared] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+const Hero: React.FC = () => {
+  const dispatch = useDispatch();
+  const { heroArticle, isHearted, isShared, isBookmarked, loading } =
+    useSelector((state: RootState) => state.hero);
 
   useEffect(() => {
-    const fetchHeroArticle = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.nytimes.com/svc/topstories/v2/us.json?api-key=${topStoriesKey}`
-        );
+    dispatch<any>(fetchHeroArticle("us"));
+  }, []);
 
-        const articles = response.data.results.map((article: Article) => ({
-          image:
-            article.multimedia && article.multimedia[0]
-              ? article.multimedia[0].url
-              : "",
-          title: article.title,
-          description: article.abstract,
-          time: new Date(article.published_date).toLocaleTimeString(),
-          author: article.byline || "Unknown Author",
-        }));
-
-        setHeroArticle(articles[0]);
-      } catch (error) {
-        console.error("Error fetching news data:", error);
-      }
-    };
-
-    fetchHeroArticle();
-  }, [topStoriesKey]);
-
-  if (!heroArticle) {
+  if (loading || !heroArticle) {
     return <div className="text-center text-gray-500">Loading...</div>;
   }
 
@@ -81,33 +53,43 @@ function Hero() {
               <IoMdHeart
                 size={24}
                 className="cursor-pointer text-red-700"
-                onClick={() => setIsHearted(false)}
+                onClick={() =>
+                  dispatch(setHeroIconState({ icon: "heart", state: false }))
+                }
               />
             ) : (
               <CiHeart
                 size={24}
-                className="cursor-pointer "
-                onClick={() => setIsHearted(true)}
+                className="cursor-pointer"
+                onClick={() =>
+                  dispatch(setHeroIconState({ icon: "heart", state: true }))
+                }
               />
             )}
 
             <HiArrowUpTray
               size={24}
               className={`cursor-pointer ${isShared ? "text-red-700" : ""}`}
-              onClick={() => setIsShared((prev) => !prev)}
+              onClick={() =>
+                dispatch(setHeroIconState({ icon: "share", state: !isShared }))
+              }
             />
 
             {isBookmarked ? (
               <IoBookmark
                 size={24}
                 className="cursor-pointer text-red-700"
-                onClick={() => setIsBookmarked(false)}
+                onClick={() =>
+                  dispatch(setHeroIconState({ icon: "bookmark", state: false }))
+                }
               />
             ) : (
               <CiBookmark
                 size={24}
                 className="cursor-pointer"
-                onClick={() => setIsBookmarked(true)}
+                onClick={() =>
+                  dispatch(setHeroIconState({ icon: "bookmark", state: true }))
+                }
               />
             )}
           </div>
@@ -123,6 +105,6 @@ function Hero() {
       </div>
     </div>
   );
-}
+};
 
 export default Hero;

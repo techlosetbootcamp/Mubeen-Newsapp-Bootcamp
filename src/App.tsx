@@ -1,7 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
-import Navbar from "./components/Navbar.tsx";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store.ts";
+import Navbar from "./components/navbar/Navbar.tsx";
 import Home from "./pages/Home.tsx";
 import CoronaUpdates from "./pages/CoronaUpdates.tsx";
 import Politics from "./pages/Politics.tsx";
@@ -12,8 +13,11 @@ import Travel from "./pages/Travel.tsx";
 import Podcasts from "./pages/Podcasts.tsx";
 import Search from "./pages/Search.tsx";
 import Footer from "./components/Footer.tsx";
+import Profile from "./pages/Profile.tsx";
 
 function App() {
+  const loading = useSelector((state: RootState) => state.news.loading);
+
   return (
     <>
       <Navbar />
@@ -27,9 +31,9 @@ function App() {
         <Route path="/travel" element={<Travel />} />
         <Route path="/podcasts" element={<Podcasts />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
-
-      <Footer />
+      {!loading && <Footer />}
     </>
   );
 }
