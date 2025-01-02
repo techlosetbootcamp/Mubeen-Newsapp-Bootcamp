@@ -6,14 +6,14 @@ import { FormattedArticle } from "../../types/newsSlice.ts";
 
 interface NewsCardProps {
   article: FormattedArticle;
-  iconState?: { heart: boolean; share: boolean; save: boolean }; // Made optional
+  iconState?: { heart: boolean; share: boolean; save: boolean };
   onToggleIcon: (icon: "heart" | "share" | "save") => void;
   onClick: () => void;
 }
 
 const NewsCard: React.FC<NewsCardProps> = ({
   article,
-  iconState = { heart: false, share: false, save: false }, // Default values
+  iconState = { heart: false, share: false, save: false },
   onToggleIcon,
   onClick,
 }) => {

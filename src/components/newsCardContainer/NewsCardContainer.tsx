@@ -5,12 +5,6 @@ import PopupModal from "../popupModal/PopupModal.tsx";
 import ViewMoreButton from "../viewMoreButton/ViewMoreButton.tsx";
 import useNewsCardContainer from "./useNewsCardContainer.ts";
 
-interface IconState {
-  heart: boolean;
-  share: boolean;
-  save: boolean;
-}
-
 const NewsCardContainer: React.FC = () => {
   const {
     articles,

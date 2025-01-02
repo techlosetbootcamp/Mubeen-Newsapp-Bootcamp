@@ -36,7 +36,14 @@ const heroSlice = createSlice({
   reducers: {
     setHeroIconState: (state, action) => {
       const { icon, state: value } = action.payload;
-      state[`is${icon.charAt(0).toUpperCase() + icon.slice(1)}`] = value;
+
+      if (icon === "heart") {
+        state.isHearted = value;
+      } else if (icon === "share") {
+        state.isShared = value;
+      } else if (icon === "bookmark") {
+        state.isBookmarked = value;
+      }
     },
   },
   extraReducers: (builder) => {

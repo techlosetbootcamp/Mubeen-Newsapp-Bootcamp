@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../redux/store.ts";
-import { fetchHeroArticle, setHeroIconState } from "../../redux/heroSlice.ts";
+import React from "react";
+
+import { setHeroIconState } from "../../redux/heroSlice.ts";
 import { CiHeart } from "react-icons/ci";
 import { IoMdHeart } from "react-icons/io";
 import { HiArrowUpTray } from "react-icons/hi2";

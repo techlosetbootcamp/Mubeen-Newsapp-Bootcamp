@@ -1,7 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../../redux/store.ts";
-import { fetchBreakingNews } from "../../redux/breakingNewsSlice.ts";
+import React from "react";
 import useBreakingNews from "./useBreakingNews.tsx";
 
 const BreakingNews: React.FC = () => {

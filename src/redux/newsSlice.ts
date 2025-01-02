@@ -109,8 +109,14 @@ const newsSlice = createSlice({
       action: PayloadAction<{ index: number; icon: keyof IconState }>
     ) => {
       const { index, icon } = action.payload;
-      state.iconStates[index][icon] = !state.iconStates[index][icon];
+      if (state.iconStates[index]) {
+        state.iconStates[index] = {
+          ...state.iconStates[index],
+          [icon]: !state.iconStates[index][icon],
+        };
+      }
     },
+
     setIconStates: (state, action: PayloadAction<IconState[]>) => {
       state.iconStates = action.payload;
     },
@@ -130,17 +136,28 @@ const newsSlice = createSlice({
         state.loading = true;
         state.isSearching = true;
       })
+      // .addCase(fetchNews.fulfilled, (state, action) => {
+      //   state.filteredArticles = action.payload;
+      //   state.loading = false;
+      //   state.isSearching = false;
+      // })
       .addCase(fetchNews.fulfilled, (state, action) => {
         state.filteredArticles = action.payload;
+        state.iconStates = action.payload.map(() => ({
+          heart: false,
+          share: false,
+          save: false,
+        }));
         state.loading = false;
-        state.isSearching = false;
       })
       .addCase(fetchNews.rejected, (state, action) => {
         console.error("Error fetching sports news:", action.error);
         state.loading = false;
         state.isSearching = false;
         state.error = action.error.message || "Failed to load news";
+        state.selectedArticle = null;
       });
+
     builder
       .addCase(fetchSearchResults.pending, (state) => {
         state.loading = true;
