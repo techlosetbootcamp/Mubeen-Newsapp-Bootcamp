@@ -2,7 +2,7 @@ import React from "react";
 import { CiHeart } from "react-icons/ci";
 import { CiBookmark } from "react-icons/ci";
 import { HiArrowUpTray } from "react-icons/hi2";
-import { FormattedArticle } from "../redux/newsSlice.ts";
+import { FormattedArticle } from "../../types/newsSlice.ts";
 
 interface NewsCardProps {
   article: FormattedArticle;

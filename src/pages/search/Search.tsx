@@ -1,38 +1,27 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../redux/store.ts";
+import React from "react";
 import {
-  fetchNews,
   setSearchQuery,
-  fetchSearchResults,
   setIconState,
   setSelectedArticle,
-} from "../redux/newsSlice.ts";
-import NewsCard from "../components/NewsCard.tsx";
-import PopupModal from "../components/PopupModal.tsx";
-import ViewMoreButton from "../components/ViewMoreButton.tsx";
-import SearchBar from "../components/SearchBar.tsx";
+} from "../../redux/newsSlice.ts";
+import NewsCard from "../../components/newsCard/NewsCard.tsx";
+import PopupModal from "../../components/popupModal/PopupModal.tsx";
+import ViewMoreButton from "../../components/viewMoreButton/ViewMoreButton.tsx";
+import SearchBar from "../../components/searchBar/SearchBar.tsx";
+import useSearch from "./useSearch.ts";
 
 const Search: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const {
     searchQuery,
+    handleSearch,
     filteredArticles,
     iconStates,
     selectedArticle,
     isSearching,
-  } = useSelector((state: RootState) => state.news);
-  const [visibleCards, setVisibleCards] = useState(6);
-
-  useEffect(() => {
-    dispatch(fetchNews("world"));
-  }, []);
-
-  const handleSearch = useCallback(() => {
-    if (searchQuery.trim()) {
-      dispatch(fetchSearchResults(searchQuery.trim()));
-    }
-  }, [searchQuery]);
+    visibleCards,
+    setVisibleCards,
+    dispatch,
+  } = useSearch();
 
   return (
     <div className="bg-gray-200 min-h-screen w-full flex flex-col gap-3 lg:px-20">

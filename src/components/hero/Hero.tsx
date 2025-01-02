@@ -1,22 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../redux/store.ts";
-import { fetchHeroArticle, setHeroIconState } from "../redux/heroSlice.ts";
+import { RootState, AppDispatch } from "../../redux/store.ts";
+import { fetchHeroArticle, setHeroIconState } from "../../redux/heroSlice.ts";
 import { CiHeart } from "react-icons/ci";
 import { IoMdHeart } from "react-icons/io";
 import { HiArrowUpTray } from "react-icons/hi2";
 import { CiBookmark } from "react-icons/ci";
 import { IoBookmark } from "react-icons/io5";
-import axios from "axios";
+import useHero from "./useHero.ts";
 
 const Hero: React.FC = () => {
-  const dispatch = useDispatch();
-  const { heroArticle, isHearted, isShared, isBookmarked, loading } =
-    useSelector((state: RootState) => state.hero);
-
-  useEffect(() => {
-    dispatch<any>(fetchHeroArticle("us"));
-  }, []);
+  const { heroArticle, isHearted, isShared, isBookmarked, loading, dispatch } =
+    useHero();
 
   if (loading || !heroArticle) {
     return <div className="text-center text-gray-500">Loading...</div>;

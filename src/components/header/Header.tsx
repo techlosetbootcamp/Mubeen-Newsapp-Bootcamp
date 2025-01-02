@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { CiViewTable } from "react-icons/ci";
 import { Link } from "react-router-dom";
-import useNavbar from "./navbar/useNavbar.ts";
+import useHeader from "./useHeader.ts";
 
 const Header: React.FC = () => {
   const [activeTab, setActiveTab] = useState("Latest Stories");
 
-  const { navigate } = useNavbar();
+  const { navigate } = useHeader();
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);

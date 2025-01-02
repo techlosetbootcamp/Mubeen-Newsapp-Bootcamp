@@ -1,17 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../redux/store.ts";
-import { fetchBreakingNews } from "../redux/breakingNewsSlice.ts";
+import { RootState, AppDispatch } from "../../redux/store.ts";
+import { fetchBreakingNews } from "../../redux/breakingNewsSlice.ts";
+import useBreakingNews from "./useBreakingNews.tsx";
 
 const BreakingNews: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { breakingNews, loading, error } = useSelector(
-    (state: RootState) => state.breakingNews
-  );
-
-  useEffect(() => {
-    dispatch(fetchBreakingNews());
-  }, []);
+  const { breakingNews, loading, error } = useBreakingNews();
 
   return (
     <div className="bg-red-700 w-full md:h-auto h-[181px] py-4 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10 px-4">

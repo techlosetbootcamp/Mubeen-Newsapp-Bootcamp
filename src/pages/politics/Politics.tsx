@@ -1,26 +1,18 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../redux/store.ts";
-import { fetchNews } from "../redux/newsSlice.ts";
-import NewsCard from "../components/NewsCard.tsx";
-import ViewMoreButton from "../components/ViewMoreButton.tsx";
-import PopupModal from "../components/PopupModal.tsx";
-import { FormattedArticle } from "../types/newsSlice.ts";
+import React from "react";
+import NewsCard from "../../components/newsCard/NewsCard.tsx";
+import ViewMoreButton from "../../components/viewMoreButton/ViewMoreButton.tsx";
+import PopupModal from "../../components/popupModal/PopupModal.tsx";
+import usePolitics from "./usePolitics.ts";
 
 const Politics: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { filteredArticles, loading } = useSelector(
-    (state: RootState) => state.news
-  );
-  const [visibleCards, setVisibleCards] = React.useState(6);
-  const [selectedArticle, setSelectedArticle] =
-    React.useState<FormattedArticle | null>(null);
-
-  useEffect(() => {
-    dispatch(fetchNews("politics"));
-  }, []);
-
-  const handleViewMore = () => setVisibleCards((prev) => prev + 6);
+  const {
+    filteredArticles,
+    loading,
+    visibleCards,
+    selectedArticle,
+    handleViewMore,
+    setSelectedArticle,
+  } = usePolitics();
 
   return (
     <div className="md:mt-20 md:mx-20 m-2">

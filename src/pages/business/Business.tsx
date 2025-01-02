@@ -1,29 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../redux/store.ts";
-import { fetchNews } from "../redux/newsSlice.ts";
-import NewsCard from "../components/NewsCard.tsx";
-import ViewMoreButton from "../components/ViewMoreButton.tsx";
-import PopupModal from "../components/PopupModal.tsx";
-import { FormattedArticle } from "../types/newsSlice.ts";
+import React from "react";
+import NewsCard from "../../components/newsCard/NewsCard.tsx";
+import ViewMoreButton from "../../components/viewMoreButton/ViewMoreButton.tsx";
+import PopupModal from "../../components/popupModal/PopupModal.tsx";
+import useBusiness from "./useBusiness.ts";
 
-const World: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { filteredArticles, loading } = useSelector(
-    (state: RootState) => state.news
-  );
-  const [visibleCards, setVisibleCards] = useState(6);
-  const [selectedArticle, setSelectedArticle] =
-    useState<FormattedArticle | null>(null);
-
-  useEffect(() => {
-    dispatch(fetchNews("world"));
-  }, []);
-
-  const handleViewMore = () => setVisibleCards((prev) => prev + 6);
+const Business: React.FC = () => {
+  const {
+    filteredArticles,
+    loading,
+    visibleCards,
+    handleViewMore,
+    selectedArticle,
+    setSelectedArticle,
+    dispatch,
+  } = useBusiness();
 
   return (
     <div className="md:mt-20 md:mx-20 m-2">
+      {/* Show loader if loading */}
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <div className="w-16 h-16 border-4 border-red-700 border-dashed rounded-full animate-spin"></div>
@@ -63,4 +57,4 @@ const World: React.FC = () => {
   );
 };
 
-export default World;
+export default Business;

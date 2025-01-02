@@ -1,23 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Slider from "react-slick";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from "../redux/store.ts";
-import { fetchEditorPicks } from "../redux/editorPicksSlice.ts";
 import { FaHeart, FaBookmark } from "react-icons/fa";
 import { FaArrowUpFromBracket } from "react-icons/fa6";
 import { IoStar } from "react-icons/io5";
+import useEditorPicks from "./useEditorPicks.tsx";
 
 const EditorsPicks: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { articles, loading, error } = useSelector(
-    (state: RootState) => state.editorPicks
-  );
-
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    dispatch(fetchEditorPicks());
-  }, []);
+  const { articles, loading, error, activeIndex, setActiveIndex } =
+    useEditorPicks();
 
   const settings = {
     dots: true,

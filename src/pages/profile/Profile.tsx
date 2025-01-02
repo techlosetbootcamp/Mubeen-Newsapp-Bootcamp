@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from "react";
+import useProfile from "./useProfile.ts";
 
 const Profile: React.FC = () => {
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-
-  const toggleDropdown = (section: string) => {
-    setActiveDropdown(activeDropdown === section ? null : section);
-  };
+  const { activeDropdown, toggleDropdown } = useProfile();
 
   return (
     <div className="flex flex-col items-center p-6 bg-gray-50 min-h-screen">
@@ -23,8 +20,8 @@ const Profile: React.FC = () => {
           <p className="text-sm text-gray-500">tylermason309@gmail.com</p>
         </div>
 
-         {/* Bookmark and Like Section */}
-         <div className="bg-white shadow rounded-lg p-4 my-6">
+        {/* Bookmark and Like Section */}
+        <div className="bg-white shadow rounded-lg p-4 my-6">
           <h2 className="text-gray-600 font-semibold">Your Activity</h2>
           <div className="flex justify-between items-center py-2 px-3 hover:bg-gray-100 rounded cursor-pointer">
             <div className="flex items-center gap-2">
@@ -47,20 +44,20 @@ const Profile: React.FC = () => {
           <h2 className="text-gray-600 font-semibold">Account settings</h2>
           {[
             {
-              label: 'Personal information',
-              info: 'You can update your name, email, or phone number here.',
+              label: "Personal information",
+              info: "You can update your name, email, or phone number here.",
             },
             {
-              label: 'Notifications',
-              info: 'Customize your email and push notification preferences.',
+              label: "Notifications",
+              info: "Customize your email and push notification preferences.",
             },
             {
-              label: 'Time spent',
-              info: 'Check your activity statistics and time logs.',
+              label: "Time spent",
+              info: "Check your activity statistics and time logs.",
             },
             {
-              label: 'Following',
-              info: 'Manage the accounts, topics, and authors you follow.',
+              label: "Following",
+              info: "Manage the accounts, topics, and authors you follow.",
             },
           ].map((item, index) => (
             <div key={index} className="border-b last:border-0 pb-3">
@@ -70,13 +67,11 @@ const Profile: React.FC = () => {
               >
                 <span className="text-gray-700">{item.label}</span>
                 <span className="text-gray-400 transform transition-transform duration-300">
-                  {activeDropdown === item.label ? '▲' : '▼'}
+                  {activeDropdown === item.label ? "▲" : "▼"}
                 </span>
               </div>
               {activeDropdown === item.label && (
-                <div className="mt-2 text-sm text-gray-600">
-                  {item.info}
-                </div>
+                <div className="mt-2 text-sm text-gray-600">{item.info}</div>
               )}
             </div>
           ))}
@@ -86,9 +81,15 @@ const Profile: React.FC = () => {
         <div className="bg-white shadow rounded-lg p-4 mt-6 space-y-4">
           <h2 className="text-gray-600 font-semibold">Help & Support</h2>
           {[
-            { label: 'Privacy policy', info: 'Learn about how we use your data.' },
-            { label: 'Terms & Conditions', info: 'Review our terms of service.' },
-            { label: 'FAQ & Help', info: 'Find answers to common questions.' },
+            {
+              label: "Privacy policy",
+              info: "Learn about how we use your data.",
+            },
+            {
+              label: "Terms & Conditions",
+              info: "Review our terms of service.",
+            },
+            { label: "FAQ & Help", info: "Find answers to common questions." },
           ].map((item, index) => (
             <div key={index} className="border-b last:border-0 pb-3">
               <div
@@ -97,18 +98,15 @@ const Profile: React.FC = () => {
               >
                 <span className="text-gray-700">{item.label}</span>
                 <span className="text-gray-400 transform transition-transform duration-300">
-                  {activeDropdown === item.label ? '▲' : '▼'}
+                  {activeDropdown === item.label ? "▲" : "▼"}
                 </span>
               </div>
               {activeDropdown === item.label && (
-                <div className="mt-2 text-sm text-gray-600">
-                  {item.info}
-                </div>
+                <div className="mt-2 text-sm text-gray-600">{item.info}</div>
               )}
             </div>
           ))}
         </div>
-
 
         {/* Logout Button */}
         <div className="mt-6">

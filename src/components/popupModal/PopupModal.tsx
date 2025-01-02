@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { CiHeart } from "react-icons/ci";
 import { IoMdHeart } from "react-icons/io";
 import { HiArrowUpTray } from "react-icons/hi2";
 import { CiBookmark } from "react-icons/ci";
 import { IoBookmark } from "react-icons/io5";
+import usePopupModal from "./usePopupModal.ts";
 
 interface PopupModalProps {
   article: {
@@ -16,18 +17,7 @@ interface PopupModalProps {
 }
 
 const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
-  const [iconState, setIconState] = useState({
-    heart: false,
-    share: false,
-    save: false,
-  });
-
-  const onToggleIcon = (icon: "heart" | "share" | "save") => {
-    setIconState((prevState) => ({
-      ...prevState,
-      [icon]: !prevState[icon],
-    }));
-  };
+  const { iconState, onToggleIcon } = usePopupModal();
 
   if (!article) return null;
 
