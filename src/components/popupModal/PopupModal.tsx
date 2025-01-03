@@ -9,9 +9,9 @@ import usePopupModal from "./usePopupModal.ts";
 
 interface PopupModalProps {
   article: {
-    image: string;
-    title: string;
-    description: string;
+    image?: string;
+    title?: string;
+    description?: string;
   } | null;
   onClose: () => void;
 }

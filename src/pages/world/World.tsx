@@ -23,8 +23,8 @@ const World: React.FC = () => {
       ) : (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredArticles.length > 0 ? (
-              filteredArticles.slice(0, visibleCards).map((article, index) => (
+            {filteredArticles?.length > 0 ? (
+              filteredArticles?.slice(0, visibleCards).map((article, index) => (
                 <NewsCard
                   key={index}
                   article={article}
@@ -41,7 +41,7 @@ const World: React.FC = () => {
           </div>
           <ViewMoreButton
             onClick={handleViewMore}
-            isVisible={visibleCards < filteredArticles.length}
+            isVisible={visibleCards < filteredArticles?.length}
           />
           {selectedArticle && (
             <PopupModal

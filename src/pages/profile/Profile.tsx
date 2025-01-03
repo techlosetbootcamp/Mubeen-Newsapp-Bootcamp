@@ -6,7 +6,6 @@ const Profile: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center p-6 bg-gray-50 min-h-screen">
-      {/* Profile Header */}
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center mb-6">
           <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-300">
@@ -19,8 +18,6 @@ const Profile: React.FC = () => {
           <h1 className="text-xl font-semibold mt-4">Tyler Mason</h1>
           <p className="text-sm text-gray-500">tylermason309@gmail.com</p>
         </div>
-
-        {/* Bookmark and Like Section */}
         <div className="bg-white shadow rounded-lg p-4 my-6">
           <h2 className="text-gray-600 font-semibold">Your Activity</h2>
           <div className="flex justify-between items-center py-2 px-3 hover:bg-gray-100 rounded cursor-pointer">
@@ -38,8 +35,6 @@ const Profile: React.FC = () => {
             <span className="text-gray-400">›</span>
           </div>
         </div>
-
-        {/* Account Settings Section */}
         <div className="bg-white shadow rounded-lg p-4 space-y-4">
           <h2 className="text-gray-600 font-semibold">Account settings</h2>
           {[
@@ -76,8 +71,6 @@ const Profile: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* Help & Support Section */}
         <div className="bg-white shadow rounded-lg p-4 mt-6 space-y-4">
           <h2 className="text-gray-600 font-semibold">Help & Support</h2>
           {[
@@ -107,8 +100,6 @@ const Profile: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* Logout Button */}
         <div className="mt-6">
           <button className="w-full py-3 bg-red-500 text-white rounded-lg hover:bg-red-600">
             Log out

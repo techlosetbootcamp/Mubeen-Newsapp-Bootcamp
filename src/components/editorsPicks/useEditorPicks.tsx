@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../redux/store.ts";
-import { RootState } from "../../redux/store.ts";
+import { AppDispatch } from "../../store/store.ts";
+import { RootState } from "../../store/store.ts";
 import { useState, useEffect } from "react";
-import { fetchEditorPicks } from "../../redux/editorPicksSlice.ts";
+import { fetchEditorPicks } from "../../store/editorPicksSlice.ts";
 
 const useEditorPicks = () => {
   const dispatch = useDispatch<AppDispatch>();

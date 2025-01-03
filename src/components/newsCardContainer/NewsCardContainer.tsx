@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../header/Header.tsx";
 import NewsCard from "../newsCard/NewsCard.tsx";
 import PopupModal from "../popupModal/PopupModal.tsx";
 import ViewMoreButton from "../viewMoreButton/ViewMoreButton.tsx";
@@ -21,8 +20,7 @@ const NewsCardContainer: React.FC = () => {
 
   return (
     <div>
-      <Header />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-2 lg:max-w-[1180px] md:mx-10">
         {loading ? (
           <div className="text-center col-span-full">Loading...</div>
         ) : error ? (
@@ -43,10 +41,10 @@ const NewsCardContainer: React.FC = () => {
             ))
         )}
       </div>
-      {!loading && !error && visibleCards < articles.length && (
+      {!loading && !error && visibleCards < articles?.length && (
         <ViewMoreButton
           onClick={handleViewMore}
-          isVisible={visibleCards < articles.length}
+          isVisible={visibleCards < articles?.length}
         />
       )}
       {selectedArticle && (

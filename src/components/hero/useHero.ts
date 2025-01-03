@@ -1,16 +1,20 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import { useEffect } from "react";
-import { RootState } from "../../redux/store.ts";
-import { fetchHeroArticle } from "../../redux/heroSlice.ts";
+import { AppDispatch, RootState } from "../../store/store.ts";
+import { fetchHeroArticle } from "../../store/heroSlice.ts";
 
 const useHero = () => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
+
+  const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
+
   const { heroArticle, isHearted, isShared, isBookmarked, loading } =
-    useSelector((state: RootState) => state.hero);
+    useTypedSelector((state) => state.hero);
 
   useEffect(() => {
-    dispatch<any>(fetchHeroArticle("us"));
-  }, []);
+    dispatch(fetchHeroArticle("us"));
+  }, [dispatch]);
+
   return {
     heroArticle,
     isHearted,

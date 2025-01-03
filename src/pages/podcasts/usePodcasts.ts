@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store.ts";
+import { AppDispatch, RootState } from "../../store/store.ts";
 import { useEffect, useState } from "react";
 import { FormattedArticle } from "../../types/newsSlice.ts";
-import { fetchNews } from "../../redux/newsSlice.ts";
+import { fetchNews } from "../../store/newsSlice.ts";
 
 const usePodcasts = () => {
   const dispatch = useDispatch<AppDispatch>();

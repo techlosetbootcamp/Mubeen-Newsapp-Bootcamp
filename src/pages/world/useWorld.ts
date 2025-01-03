@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store.ts";
+import { AppDispatch, RootState } from "../../store/store.ts";
 import { FormattedArticle } from "../../types/newsSlice.ts";
-import { fetchNews } from "../../redux/newsSlice.ts";
+import { fetchNews } from "../../store/newsSlice.ts";
 
 const useWorld = () => {
   const dispatch = useDispatch<AppDispatch>();

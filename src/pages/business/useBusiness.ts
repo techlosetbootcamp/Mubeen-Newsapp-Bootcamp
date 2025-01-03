@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../redux/store.ts";
-import { RootState } from "../../redux/store.ts";
+import { AppDispatch } from "../../store/store.ts";
+import { RootState } from "../../store/store.ts";
 import { useState, useEffect } from "react";
 import { FormattedArticle } from "../../types/newsSlice.ts";
-import { fetchNews } from "../../redux/newsSlice.ts";
+import { fetchNews } from "../../store/newsSlice.ts";
 
 const useBusiness = () => {
   const dispatch = useDispatch<AppDispatch>();

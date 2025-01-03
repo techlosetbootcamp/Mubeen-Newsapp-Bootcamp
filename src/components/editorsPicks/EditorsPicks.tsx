@@ -15,7 +15,7 @@ const EditorsPicks: React.FC = () => {
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 2,
-    beforeChange: (oldIndex: number, newIndex: number) => {
+    beforeChange: (newIndex: number) => {
       setActiveIndex(newIndex);
     },
     customPaging: (i: number) => (
@@ -55,7 +55,7 @@ const EditorsPicks: React.FC = () => {
   };
 
   return (
-    <div className="max-w-full mb-10">
+    <div className="max-w-full mb-10 lg:max-w-[1180px] md:mx-10">
       <div className="flex gap-x-6 items-center mb-6 pl-5">
         <h2 className="text-2xl font-semibold">Editor's Picks</h2>
         <IoStar size={20} />

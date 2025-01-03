@@ -101,6 +101,9 @@ const newsSlice = createSlice({
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
     },
+    setIsSearching(state, action: PayloadAction<boolean>) {
+      state.isSearching = action.payload;
+    },
     setFilteredArticles: (state, action: PayloadAction<FormattedArticle[]>) => {
       state.filteredArticles = action.payload;
     },
@@ -136,11 +139,6 @@ const newsSlice = createSlice({
         state.loading = true;
         state.isSearching = true;
       })
-      // .addCase(fetchNews.fulfilled, (state, action) => {
-      //   state.filteredArticles = action.payload;
-      //   state.loading = false;
-      //   state.isSearching = false;
-      // })
       .addCase(fetchNews.fulfilled, (state, action) => {
         state.filteredArticles = action.payload;
         state.iconStates = action.payload.map(() => ({
@@ -149,6 +147,7 @@ const newsSlice = createSlice({
           save: false,
         }));
         state.loading = false;
+        state.isSearching = false;
       })
       .addCase(fetchNews.rejected, (state, action) => {
         console.error("Error fetching sports news:", action.error);
@@ -161,6 +160,7 @@ const newsSlice = createSlice({
     builder
       .addCase(fetchSearchResults.pending, (state) => {
         state.loading = true;
+        state.isSearching = true;
       })
       .addCase(fetchSearchResults.fulfilled, (state, action) => {
         state.filteredArticles = action.payload;
@@ -175,6 +175,7 @@ const newsSlice = createSlice({
 });
 
 export const {
+  setIsSearching,
   setSearchQuery,
   setFilteredArticles,
   setIconState,

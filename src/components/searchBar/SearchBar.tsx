@@ -13,11 +13,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onKeyDown,
 }) => {
   return (
-    <div className="relative mt-10 md:w-[400px]">
+    <div className="relative mt-10 md:w-[800px]">
       <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
       <input
         type="text"
-        className="md:w-full w-[250px] h-[54px] pl-12 pr-4 border border-gray-300 rounded-md focus:outline-none"
+        className="md:w-[800px] w-[250px] h-[54px] pl-12 pr-4 border border-gray-300 rounded-md focus:outline-none"
         placeholder="Search News..."
         value={value}
         onChange={onChange}

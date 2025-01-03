@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store.ts";
-import { RootState } from "../../redux/store.ts";
+import { AppDispatch } from "../../store/store.ts";
+import { RootState } from "../../store/store.ts";
 import { useState, useEffect } from "react";
 import { IconState } from "../../types/newsSlice.ts";
 import { Article } from "../../types/newsSlice.ts";
-import { fetchTopStories } from "../../redux/topStoriesSlice.ts";
+import { fetchTopStories } from "../../store/topStoriesSlice.ts";
 
 const useNewsCardContainer = () => {
   const dispatch = useDispatch<AppDispatch>();

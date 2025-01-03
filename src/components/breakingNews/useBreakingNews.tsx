@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
+import { AppDispatch, RootState } from "../../store/store";
 import { useEffect } from "react";
-import { fetchBreakingNews } from "../../redux/breakingNewsSlice.ts";
+import { fetchBreakingNews } from "../../store/breakingNewsSlice.ts";
 
 const useBreakingNews = () => {
   const dispatch = useDispatch<AppDispatch>();

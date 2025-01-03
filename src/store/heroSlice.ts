@@ -1,8 +1,9 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { HeroArticle, HeroState } from "../types/heroSlice.ts";
+import { HeroArticle, HeroState, IconStatePayload } from "../types/heroSlice";
 
-const initialState: HeroState = {
+// Initial state
+export const initialState: HeroState = {
   heroArticle: null,
   isHearted: false,
   isShared: false,
@@ -10,7 +11,8 @@ const initialState: HeroState = {
   loading: false,
 };
 
-export const fetchHeroArticle = createAsyncThunk(
+// Async thunk with proper typing
+export const fetchHeroArticle = createAsyncThunk<HeroArticle, string>(
   "hero/fetchHeroArticle",
   async (section: string) => {
     const apiKey =
@@ -21,21 +23,22 @@ export const fetchHeroArticle = createAsyncThunk(
     );
     const articles = response.data.results.map((article: HeroArticle) => ({
       image: article.multimedia?.[0]?.url || "",
-      title: article.title,
-      description: article.abstract,
-      time: new Date(article.published_date).toLocaleTimeString(),
-      author: article.byline || "Unknown Author",
+      title: article?.title,
+      description: article?.abstract,
+      time: new Date(article?.published_date).toLocaleTimeString(),
+      author: article?.byline || "Unknown Author",
     }));
-    return articles[0];
+    return articles[0]; // Return the first article
   }
 );
 
+// Slice definition
 const heroSlice = createSlice({
   name: "hero",
   initialState,
   reducers: {
-    setHeroIconState: (state, action) => {
-      const { icon, state: value } = action.payload;
+    setHeroIconState: (state, action: PayloadAction<IconStatePayload>) => {
+      const { icon, value } = action.payload;
 
       if (icon === "heart") {
         state.isHearted = value;
@@ -61,5 +64,6 @@ const heroSlice = createSlice({
   },
 });
 
+// Export actions and reducer
 export const { setHeroIconState } = heroSlice.actions;
 export default heroSlice.reducer;

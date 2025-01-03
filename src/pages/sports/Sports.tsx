@@ -23,8 +23,8 @@ const Sports: React.FC = () => {
       ) : (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredArticles.length > 0 ? (
-              filteredArticles.slice(0, visibleCards).map((article, index) => (
+            {filteredArticles?.length > 0 ? (
+              filteredArticles?.slice(0, visibleCards).map((article, index) => (
                 <NewsCard
                   key={index}
                   article={article}

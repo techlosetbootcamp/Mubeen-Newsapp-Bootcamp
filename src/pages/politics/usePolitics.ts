@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
+import { AppDispatch, RootState } from "../../store/store";
 import { FormattedArticle } from "../../types/newsSlice";
-import { fetchNews } from "../../redux/newsSlice.ts";
+import { fetchNews } from "../../store/newsSlice.ts";
 
 const usePolitics = () => {
   const dispatch = useDispatch<AppDispatch>();

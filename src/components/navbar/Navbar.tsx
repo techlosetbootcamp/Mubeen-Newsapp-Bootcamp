@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { FiUser } from "react-icons/fi";
 import { CiSearch, CiTextAlignRight } from "react-icons/ci";
@@ -18,8 +18,8 @@ function Navbar() {
   } = useNavbar();
 
   return (
-    <div className="flex items-center justify-between bg-white h-[80px] w-full px-4 md:px-20 shadow-md">
-      <div>
+    <div className="flex items-center justify-between md:justify-around bg-white h-[80px] w-full px-4 shadow-md">
+      <div className="pr-5">
         <Link to="/">
           <img src={logo} alt="Logo" width={63} height={52} />
         </Link>

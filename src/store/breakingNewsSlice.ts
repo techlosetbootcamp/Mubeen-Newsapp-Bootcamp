@@ -17,7 +17,7 @@ export const fetchBreakingNews = createAsyncThunk(
       `https://api.nytimes.com/svc/topstories/v2/world.json?api-key=${apiKey}`
     );
 
-    if (response.data.results && response.data.results.length > 0) {
+    if (response?.data?.results && response?.data?.results?.length > 0) {
       return (
         response?.data?.results?.[0]?.title || "No breaking news available."
       );

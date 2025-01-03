@@ -1,27 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { CiViewTable } from "react-icons/ci";
 import { Link } from "react-router-dom";
-import useHeader from "./useHeader.ts";
 
-const Header: React.FC = () => {
-  const [activeTab, setActiveTab] = useState("Latest Stories");
+interface HeaderProps {
+  activeTab: string;
+  onTabChange: (tab: string) => void;
+}
 
-  const { navigate } = useHeader();
-
-  const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
-
-    if (tab === "Latest Stories") {
-      navigate("/");
-    } else if (tab === "Opinion") {
-      navigate("/podcasts");
-    } else if (tab === "Health") {
-      navigate("/corona-updates");
-    }
-  };
-
+const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
   return (
-    <div className="bg-white w-full md:h-[54px] h-auto flex items-center justify-between px-4">
+    <div className="bg-white w-full md:h-[54px] h-auto flex items-center justify-between px-4 lg:max-w-[1180px] md:mx-10">
       <div className="flex gap-x-5 font-semibold">
         {["Latest Stories", "Opinion", "Health"].map((tab) => (
           <Link
@@ -32,7 +20,7 @@ const Header: React.FC = () => {
             }`}
             onClick={(e) => {
               e.preventDefault();
-              handleTabClick(tab);
+              onTabChange(tab);
             }}
           >
             {tab}

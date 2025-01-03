@@ -15,7 +15,7 @@ const CoronaUpdates: React.FC = () => {
   } = useCoronaUpdates();
 
   return (
-    <div className="md:mt-20 md:mx-20 m-2">
+    <div className="md:mt-10  md:mx-20 m-2">
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <div className="w-16 h-16 border-4 border-red-700 border-dashed rounded-full animate-spin"></div>
@@ -23,8 +23,8 @@ const CoronaUpdates: React.FC = () => {
       ) : (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredArticles.length > 0 ? (
-              filteredArticles.slice(0, visibleCards).map((article, index) => (
+            {filteredArticles?.length > 0 ? (
+              filteredArticles?.slice(0, visibleCards).map((article, index) => (
                 <NewsCard
                   key={index}
                   article={article}

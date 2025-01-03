@@ -30,4 +30,3 @@ export interface TopStoriesState {
   loading: boolean;
   error: boolean;
 }
-

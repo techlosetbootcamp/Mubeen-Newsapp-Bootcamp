@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store.ts";
+import { AppDispatch, RootState } from "../../store/store.ts";
 import { FormattedArticle } from "../../types/newsSlice.ts";
-import { fetchNews } from "../../redux/newsSlice.ts";
+import { fetchNews } from "../../store/newsSlice.ts";
 
 const useSports = () => {
   const dispatch = useDispatch<AppDispatch>();

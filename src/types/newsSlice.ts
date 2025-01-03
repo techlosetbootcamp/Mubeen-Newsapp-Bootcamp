@@ -50,4 +50,3 @@ export interface NewsState {
   loading: boolean;
   isSearching?: boolean;
 }
-

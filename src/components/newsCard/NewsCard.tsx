@@ -32,20 +32,19 @@ const NewsCard: React.FC<NewsCardProps> = ({
       <div className="md:h-[280px] h-[240px]">
         <div className="flex flex-col gap-y-2 items-center py-5 px-3">
           <p className="text-lg font-semibold font-serif line-clamp-2">
-            {article.title}
+            {article?.title}
           </p>
-          <p className="text-md line-clamp-3">{article.description}</p>
-        </div>
-
-        <div className="flex md:flex-row flex-col items-center justify-center gap-x-2 gap-y-2 text-sm p-2 mb-4">
-          <time className="font-medium">{article.time}</time>
-          <p className="line-clamp-1 md:line-clamp-none">{article.author}</p>
+          <p className="text-md line-clamp-3">{article?.description}</p>
         </div>
       </div>
-
       <div>
+        <div className="flex md:flex-row flex-col items-center justify-center gap-x-2 gap-y-2 text-sm p-2 mb-0">
+          <time className="font-medium text-sm line-clamp-1">
+            {article?.time}
+          </time>
+          <p className="line-clamp-1">{article?.author}</p>
+        </div>
         <hr className="border-gray-300 w-full" />
-
         <div className="flex items-center justify-center gap-x-4 text-gray-500 text-sm py-3">
           <span className="text-red-700 font-medium">Trending</span>
 

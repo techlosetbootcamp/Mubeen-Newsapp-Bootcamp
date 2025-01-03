@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "./redux/store.ts";
+import { RootState } from "./store/store.ts";
 import Navbar from "./components/navbar/Navbar.tsx";
 import CoronaUpdates from "./pages/coronaUpdates/CoronaUpdates.tsx";
 import Politics from "./pages/politics/Politics.tsx";

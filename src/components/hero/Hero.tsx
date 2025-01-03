@@ -1,6 +1,5 @@
 import React from "react";
-
-import { setHeroIconState } from "../../redux/heroSlice.ts";
+import { setHeroIconState } from "../../store/heroSlice.ts";
 import { CiHeart } from "react-icons/ci";
 import { IoMdHeart } from "react-icons/io";
 import { HiArrowUpTray } from "react-icons/hi2";
@@ -17,10 +16,10 @@ const Hero: React.FC = () => {
   }
 
   return (
-    <div className="relative w-full md:flex md:gap-10 md:my-10 md:justify-center md:items-center">
+    <div className="relative w-full md:flex md:gap-10 md:my-10 md:justify-center md:items-center lg:max-w-[1245px] md:px-10">
       <div className="relative">
         <img
-          src={heroArticle.image}
+          src={heroArticle?.image}
           alt="Hero"
           className="w-full max:h-[456px] md:max-h-[456px] md:rounded-lg shadow-lg object-cover"
         />
@@ -32,8 +31,8 @@ const Hero: React.FC = () => {
           ></div>
 
           <div className="relative p-4">
-            <h1 className="text-white text-2xl font-bold font-serif">
-              {heroArticle.title}
+            <h1 className="text-white text-xl md:text-2xl font-bold font-serif line-clamp-4">
+              {heroArticle?.title}
             </h1>
           </div>
         </div>
@@ -48,7 +47,7 @@ const Hero: React.FC = () => {
                 size={24}
                 className="cursor-pointer text-red-700"
                 onClick={() =>
-                  dispatch(setHeroIconState({ icon: "heart", state: false }))
+                  dispatch(setHeroIconState({ icon: "heart", value: false }))
                 }
               />
             ) : (
@@ -56,7 +55,7 @@ const Hero: React.FC = () => {
                 size={24}
                 className="cursor-pointer"
                 onClick={() =>
-                  dispatch(setHeroIconState({ icon: "heart", state: true }))
+                  dispatch(setHeroIconState({ icon: "heart", value: true }))
                 }
               />
             )}
@@ -65,7 +64,7 @@ const Hero: React.FC = () => {
               size={24}
               className={`cursor-pointer ${isShared ? "text-red-700" : ""}`}
               onClick={() =>
-                dispatch(setHeroIconState({ icon: "share", state: !isShared }))
+                dispatch(setHeroIconState({ icon: "share", value: !isShared }))
               }
             />
 
@@ -74,7 +73,7 @@ const Hero: React.FC = () => {
                 size={24}
                 className="cursor-pointer text-red-700"
                 onClick={() =>
-                  dispatch(setHeroIconState({ icon: "bookmark", state: false }))
+                  dispatch(setHeroIconState({ icon: "bookmark", value: false }))
                 }
               />
             ) : (
@@ -82,7 +81,7 @@ const Hero: React.FC = () => {
                 size={24}
                 className="cursor-pointer"
                 onClick={() =>
-                  dispatch(setHeroIconState({ icon: "bookmark", state: true }))
+                  dispatch(setHeroIconState({ icon: "bookmark", value: true }))
                 }
               />
             )}
@@ -90,11 +89,13 @@ const Hero: React.FC = () => {
         </div>
 
         <h1 className="text-xl md:text-2xl font-semibold tracking-wide">
-          {heroArticle.title}
+          {heroArticle?.title}
         </h1>
-        <p className="text-gray-600">{heroArticle.description}</p>
+        <p className="text-gray-600 md:line-clamp-5">
+          {heroArticle?.description}
+        </p>
         <p className="text-sm text-gray-500">
-          {heroArticle.time} | {heroArticle.author}
+          {heroArticle?.time} | {heroArticle?.author}
         </p>
       </div>
     </div>
