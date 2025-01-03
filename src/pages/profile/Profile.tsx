@@ -5,7 +5,7 @@ const Profile: React.FC = () => {
   const { activeDropdown, toggleDropdown } = useProfile();
 
   return (
-    <div className="flex flex-col items-center p-6 bg-gray-50 min-h-screen">
+    <div className="flex flex-col items-center p-6 bg-BACKGROUND_COLOR min-h-screen">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center mb-6">
           <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-300">

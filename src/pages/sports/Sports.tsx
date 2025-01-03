@@ -15,7 +15,7 @@ const Sports: React.FC = () => {
   } = useSports();
 
   return (
-    <div className="md:mt-20 md:mx-20 m-2">
+    <div className="bg-BACKGROUND_COLOR md:pt-10  md:px-20 p-2">
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <div className="w-16 h-16 border-4 border-red-700 border-dashed rounded-full animate-spin"></div>
@@ -41,7 +41,7 @@ const Sports: React.FC = () => {
           </div>
           <ViewMoreButton
             onClick={handleViewMore}
-            isVisible={visibleCards < filteredArticles.length}
+            isVisible={visibleCards < filteredArticles?.length}
           />
           {selectedArticle && (
             <PopupModal

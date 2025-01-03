@@ -28,7 +28,7 @@ function Navbar() {
       <div className="hidden md:flex gap-x-10">
         {NAVBAR_ROUTES.map((route) => (
           <div key={route.name} className="flex items-center gap-2">
-            {activeRoute === route.name && (
+            {activeRoute === route?.name && (
               <div className="h-2 w-2 bg-red-700 rounded-full" />
             )}
             <Link
@@ -38,7 +38,7 @@ function Navbar() {
                 activeRoute === route.name ? "font-bold text-gray-800" : ""
               }`}
             >
-              {route.name}
+              {route?.name}
             </Link>
           </div>
         ))}
@@ -85,18 +85,18 @@ function Navbar() {
 
         <div className="flex flex-col gap-y-4 mt-10">
           {NAVBAR_ROUTES.map((route) => (
-            <div key={route.name} className="flex items-center gap-2">
-              {activeRoute === route.name && (
+            <div key={route?.name} className="flex items-center gap-2">
+              {activeRoute === route?.name && (
                 <div className="h-2 w-2 bg-red-700 rounded-full" />
               )}
               <Link
-                to={route.path}
+                to={route?.path}
                 onClick={() => {
                   handleRouteClick(route.name);
                   setMobileMenuOpen(false);
                 }}
                 className={`${
-                  activeRoute === route.name ? "font-bold text-gray-800" : ""
+                  activeRoute === route?.name ? "font-bold text-gray-800" : ""
                 }`}
               >
                 {route.name}

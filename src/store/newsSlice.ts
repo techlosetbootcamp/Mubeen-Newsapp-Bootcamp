@@ -7,6 +7,7 @@ import {
   IconState,
   NewsState,
 } from "../types/newsSlice.ts";
+import { BASE_URL } from "../constants/apiBaseUrl.ts";
 
 const initialState: NewsState = {
   searchQuery: "",
@@ -40,9 +41,7 @@ export const fetchNews = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        `https://api.nytimes.com/svc/topstories/v2/${
-          category || "us"
-        }.json?api-key=${apiKey}`
+        `${BASE_URL}${category || "us"}.json?api-key=${apiKey}`
       );
       const formattedArticles = response.data.results.map(
         (article: Article) => ({
@@ -69,7 +68,7 @@ export const fetchSearchResults = createAsyncThunk(
 
     try {
       const response = await axios.get(
-        `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${query}&api-key=${apiKey}`
+        `${BASE_URL}articlesearch.json?q=${query}&api-key=${apiKey}`
       );
       const formattedArticles = response.data.response.docs.map(
         (article: Article) => {

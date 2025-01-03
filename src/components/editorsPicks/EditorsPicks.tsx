@@ -74,8 +74,8 @@ const EditorsPicks: React.FC = () => {
               <div className="flex flex-col h-[376px] md:h-[171px] md:flex-row max-w-[100%] w-full bg-white rounded-md shadow-md overflow-hidden gap-4">
                 <div className="relative w-full md:w-[40%] h-full">
                   <img
-                    src={card.image}
-                    alt={card.title}
+                    src={card?.image}
+                    alt={card?.title}
                     className="w-full md:h-full object-cover h-[170px]"
                   />
                   <div className="absolute bottom-0 left-0 right-0 h-[50%] bg-gradient-to-t from-black to-transparent flex items-center justify-center gap-x-3 opacity-0 hover:opacity-100 transition-opacity duration-300">
@@ -95,9 +95,9 @@ const EditorsPicks: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col justify-center py-10 px-4 md:px-4 md:py-4 w-full md:w-[60%] md:overflow-hidden md:line-clamp-6 md:items-center md:mb-4">
-                  <div className="text-lg font-semibold">{card.title}</div>
+                  <div className="text-lg font-semibold">{card?.title}</div>
                   <div className="text-sm text-gray-600 line-clamp-3 md:line-clamp-none">
-                    {card.description}
+                    {card?.description}
                   </div>
                 </div>
               </div>

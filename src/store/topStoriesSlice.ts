@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Article, TopStoriesState } from "../types/topStoriesSlice.ts";
+import { BASE_URL } from "../constants/apiBaseUrl.ts";
 
 const initialState: TopStoriesState = {
   articles: [],
@@ -13,9 +14,7 @@ export const fetchTopStories = createAsyncThunk(
   async (_) => {
     const apiKey = process.env?.REACT_APP_TOP_STORIES_API_KEY || "";
 
-    const response = await axios.get(
-      `https://api.nytimes.com/svc/topstories/v2/world.json?api-key=${apiKey}`
-    );
+    const response = await axios.get(`${BASE_URL}world.json?api-key=${apiKey}`);
 
     return response.data.results.map((article: Article) => ({
       image: article.multimedia?.[0]?.url || "",

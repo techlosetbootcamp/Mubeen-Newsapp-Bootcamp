@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { HeroArticle, HeroState, IconStatePayload } from "../types/heroSlice";
+import { BASE_URL } from "../constants/apiBaseUrl.ts";
 
 // Initial state
 export const initialState: HeroState = {
@@ -19,7 +20,7 @@ export const fetchHeroArticle = createAsyncThunk<HeroArticle, string>(
       process.env?.REACT_APP_TOP_STORIES_API_KEY ||
       "kzoxGuCiCSr7YVhGimt0gsmRkjtexpui";
     const response = await axios.get(
-      `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${apiKey}`
+      `${BASE_URL}${section}.json?api-key=${apiKey}`
     );
     const articles = response.data.results.map((article: HeroArticle) => ({
       image: article.multimedia?.[0]?.url || "",

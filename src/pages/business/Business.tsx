@@ -15,7 +15,7 @@ const Business: React.FC = () => {
   } = useBusiness();
 
   return (
-    <div className="bg-[#f1f2f3] md:mt-20 md:mx-20 m-2">
+    <div className="bg-BACKGROUND_COLOR md:pt-10  md:px-20 p-2">
       {/* Show loader if loading */}
       {loading ? (
         <div className="flex justify-center items-center h-64">

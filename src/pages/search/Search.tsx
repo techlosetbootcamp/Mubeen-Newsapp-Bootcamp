@@ -24,7 +24,7 @@ const Search: React.FC = () => {
   } = useSearch();
 
   return (
-    <div className="bg-gray-200 min-h-screen w-full flex flex-col gap-3 lg:px-20">
+    <div className="bg-BACKGROUND_COLOR min-h-screen w-full flex flex-col gap-3 lg:px-20">
       <div className="flex flex-col items-center justify-center mt-[160px]">
         <h1 className="text-2xl font-serif font-extrabold">Search News</h1>
         <SearchBar
@@ -56,10 +56,10 @@ const Search: React.FC = () => {
             />
           ))}
         </div>
-        {visibleCards < filteredArticles.length && (
+        {visibleCards < filteredArticles?.length && (
           <ViewMoreButton
             onClick={() => setVisibleCards((prev) => prev + 6)}
-            isVisible={visibleCards < filteredArticles.length}
+            isVisible={visibleCards < filteredArticles?.length}
           />
         )}
       </div>

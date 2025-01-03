@@ -23,7 +23,7 @@ function Footer() {
       <div className="flex flex-col items-center justify-around gap-6 text-white">
         <div className="flex flex-col md:flex-row gap-x-10">
           {navLinks.map((link) => (
-            <p key={link.name}>{link.name}</p>
+            <p key={link?.name}>{link?.name}</p>
           ))}
         </div>
 

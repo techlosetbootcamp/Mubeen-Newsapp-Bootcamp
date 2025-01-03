@@ -33,7 +33,7 @@ const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
 
         <div className="w-[279px] h-[347px] md:w-[70%] md:h-[90%]">
           <img
-            src={article.image}
+            src={article?.image}
             alt="Popup Thumbnail"
             className="rounded-lg w-full h-full object-fill p-10"
           />
@@ -98,9 +98,9 @@ const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
             </div>
           </div>
 
-          <div className="text-2xl font-bold">{article.title}</div>
+          <div className="text-2xl font-bold">{article?.title}</div>
 
-          <div className="text-md">{article.description}</div>
+          <div className="text-md">{article?.description}</div>
         </div>
       </div>
     </div>

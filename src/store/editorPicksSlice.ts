@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Article, EditorPicksState } from "../types/editorPicksSlice.ts";
+import { BASE_URL } from "../constants/apiBaseUrl.ts";
 
 const initialState: EditorPicksState = {
   articles: [],
@@ -13,9 +14,7 @@ export const fetchEditorPicks = createAsyncThunk(
   async (_) => {
     const apiKey = process.env?.REACT_APP_TOP_STORIES_API_KEY || "";
 
-    const response = await axios.get(
-      `https://api.nytimes.com/svc/topstories/v2/arts.json?api-key=${apiKey}`
-    );
+    const response = await axios.get(`${BASE_URL}arts.json?api-key=${apiKey}`);
 
     return response.data.results.map((article: Article) => ({
       image: article.multimedia?.[0]?.url || "",
