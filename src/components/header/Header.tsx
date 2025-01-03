@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
           >
             {tab}
             {activeTab === tab && (
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-red-700" />
+              <span className="absolute bottom-0 left-0 w-[50%] h-[2px] bg-red-700" />
             )}
           </Link>
         ))}
