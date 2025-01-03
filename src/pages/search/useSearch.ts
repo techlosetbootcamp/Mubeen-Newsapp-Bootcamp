@@ -5,7 +5,7 @@ import {
   fetchNews,
   fetchSearchResults,
   setIsSearching,
-} from "../../store/newsSlice.ts";
+} from "../../store/slices/newsSlice.ts";
 
 const useSearch = () => {
   const dispatch = useDispatch<AppDispatch>();

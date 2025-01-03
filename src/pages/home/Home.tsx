@@ -1,4 +1,3 @@
-// Updated Home.tsx
 import React from "react";
 import Hero from "../../components/hero/Hero.tsx";
 import BreakingNews from "../../components/breakingNews/BreakingNews.tsx";
@@ -12,7 +11,7 @@ import useHome from "./useHome.ts";
 function Home() {
   const { activeTab, setActiveTab } = useHome();
   return (
-    <div className="bg-BACKGROUND_COLOR min-h-screen w-full flex flex-col items-center justify-center gap-3">
+    <div className="bg-PrimaryBackground min-h-screen w-full flex flex-col items-center justify-center gap-3">
       <Hero />
       <BreakingNews />
       <Header activeTab={activeTab} onTabChange={setActiveTab} />

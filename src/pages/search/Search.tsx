@@ -3,7 +3,7 @@ import {
   setSearchQuery,
   setIconState,
   setSelectedArticle,
-} from "../../store/newsSlice.ts";
+} from "../../store/slices/newsSlice.ts";
 import NewsCard from "../../components/newsCard/NewsCard.tsx";
 import PopupModal from "../../components/popupModal/PopupModal.tsx";
 import ViewMoreButton from "../../components/viewMoreButton/ViewMoreButton.tsx";
@@ -24,7 +24,7 @@ const Search: React.FC = () => {
   } = useSearch();
 
   return (
-    <div className="bg-BACKGROUND_COLOR min-h-screen w-full flex flex-col gap-3 lg:px-20">
+    <div className="bg-PrimaryBackground min-h-screen w-full flex flex-col gap-3 lg:px-20">
       <div className="flex flex-col items-center justify-center mt-[160px]">
         <h1 className="text-2xl font-serif font-extrabold">Search News</h1>
         <SearchBar

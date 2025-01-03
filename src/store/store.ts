@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import newsReducer from "./newsSlice.ts";
-import heroReducer from "./heroSlice.ts";
-import breakingNewsReducer from "./breakingNewsSlice.ts";
-import topStoriesReducer from "./topStoriesSlice.ts";
-import editorsPicksReducer from "./editorPicksSlice.ts";
+import newsReducer from "../store/slices/newsSlice.ts";
+import heroReducer from "../store/slices/heroSlice.ts";
+import breakingNewsReducer from "../store/slices/breakingNewsSlice.ts";
+import topStoriesReducer from "../store/slices/topStoriesSlice.ts";
+import editorsPicksReducer from "../store/slices/editorPicksSlice.ts";
 
 const store = configureStore({
   reducer: {

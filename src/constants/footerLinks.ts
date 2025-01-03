@@ -16,3 +16,10 @@ export const socialMediaLinks = [
   { icon: FaRedditAlien, href: "https://www.techloset.com/" },
   { icon: MdFacebook, href: "https://www.facebook.com/techloset/" },
 ];
+
+export const policyText = [
+  { text: "Privacy Policy" },
+  { text: "Do not sell my personal info" },
+  { text: "Terms and Services" },
+  { text: "nbcnews.com Site map" },
+];

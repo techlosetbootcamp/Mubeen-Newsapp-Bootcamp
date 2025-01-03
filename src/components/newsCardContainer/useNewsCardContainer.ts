@@ -4,7 +4,7 @@ import { RootState } from "../../store/store.ts";
 import { useState, useEffect } from "react";
 import { IconState } from "../../types/newsSlice.ts";
 import { Article } from "../../types/newsSlice.ts";
-import { fetchTopStories } from "../../store/topStoriesSlice.ts";
+import { fetchTopStories } from "../../store/slices/topStoriesSlice.ts";
 
 const useNewsCardContainer = () => {
   const dispatch = useDispatch<AppDispatch>();

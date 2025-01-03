@@ -1,7 +1,7 @@
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import { useEffect } from "react";
 import { AppDispatch, RootState } from "../../store/store.ts";
-import { fetchHeroArticle } from "../../store/heroSlice.ts";
+import { fetchHeroArticle } from "../../store/slices/heroSlice.ts";
 
 const useHero = () => {
   const dispatch: AppDispatch = useDispatch();

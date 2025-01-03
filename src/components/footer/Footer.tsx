@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { navLinks, socialMediaLinks } from "../../constants/footerLinks.ts";
 import { SiNbc } from "react-icons/si";
+import { policyText } from "../../constants/footerLinks.ts";
 
 function Footer() {
   return (
@@ -14,16 +15,17 @@ function Footer() {
       </div>
 
       <div className="hidden md:flex flex-col gap-y-2 text-white text-center md:text-left">
-        <p className="text-sm">Privacy Policy</p>
-        <p className="text-sm">Do not sell my personal info</p>
-        <p className="text-sm">Terms and Services</p>
-        <p className="text-sm">nbcnews.com Site map</p>
+        {policyText.map((name) => (
+          <p key={name.text}>{name.text}</p>
+        ))}
       </div>
 
       <div className="flex flex-col items-center justify-around gap-6 text-white">
         <div className="flex flex-col md:flex-row gap-x-10">
           {navLinks.map((link) => (
-            <p key={link?.name}>{link?.name}</p>
+            <p key={link?.name} className="text-sm">
+              {link?.name}
+            </p>
           ))}
         </div>
 

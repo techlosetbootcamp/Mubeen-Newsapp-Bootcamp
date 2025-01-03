@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Article, TopStoriesState } from "../types/topStoriesSlice.ts";
-import { BASE_URL } from "../constants/apiBaseUrl.ts";
+import { Article, TopStoriesState } from "../../types/topStoriesSlice.ts";
+import { BASE_URL } from "../../constants/apiBaseUrl.ts";
 
 const initialState: TopStoriesState = {
   articles: [],

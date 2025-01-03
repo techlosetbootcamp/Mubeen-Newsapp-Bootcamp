@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { BreakingNewsState } from "../types/breakinNewsSlice.ts";
-import { BASE_URL } from "../constants/apiBaseUrl.ts";
+import { BreakingNewsState } from "../../types/breakinNewsSlice.ts";
+import { BASE_URL } from "../../constants/apiBaseUrl.ts";
 
 const initialState: BreakingNewsState = {
   breakingNews: null,

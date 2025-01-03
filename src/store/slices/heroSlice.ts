@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { HeroArticle, HeroState, IconStatePayload } from "../types/heroSlice";
-import { BASE_URL } from "../constants/apiBaseUrl.ts";
+import {
+  HeroArticle,
+  HeroState,
+  IconStatePayload,
+} from "../../types/heroSlice.ts";
+import { BASE_URL } from "../../constants/apiBaseUrl.ts";
 
 export const initialState: HeroState = {
   heroArticle: null,

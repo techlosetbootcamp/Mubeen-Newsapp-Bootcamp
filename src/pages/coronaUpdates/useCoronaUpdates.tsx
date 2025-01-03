@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/store.ts";
 import { useState, useEffect } from "react";
 import { FormattedArticle } from "../../types/newsSlice.ts";
-import { fetchNews } from "../../store/newsSlice.ts";
+import { fetchNews } from "../../store/slices/newsSlice.ts";
 
 const useCoronaUpdates = () => {
   const dispatch = useDispatch<AppDispatch>();

@@ -6,8 +6,8 @@ import {
   FormattedArticle,
   IconState,
   NewsState,
-} from "../types/newsSlice.ts";
-import { BASE_URL } from "../constants/apiBaseUrl.ts";
+} from "../../types/newsSlice.ts";
+import { BASE_URL } from "../../constants/apiBaseUrl.ts";
 
 const initialState: NewsState = {
   searchQuery: "",

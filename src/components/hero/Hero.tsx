@@ -1,5 +1,5 @@
 import React from "react";
-import { setHeroIconState } from "../../store/heroSlice.ts";
+import { setHeroIconState } from "../../store/slices/heroSlice.ts";
 import { CiHeart } from "react-icons/ci";
 import { IoMdHeart } from "react-icons/io";
 import { HiArrowUpTray } from "react-icons/hi2";
