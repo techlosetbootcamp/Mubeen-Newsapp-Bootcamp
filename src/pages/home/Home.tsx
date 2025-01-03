@@ -11,19 +11,18 @@ import useHome from "./useHome.ts";
 
 function Home() {
   const { activeTab, setActiveTab } = useHome();
-
-  const renderContent = () => {
-    if (activeTab === "Opinion") return <Podcasts />;
-    if (activeTab === "Health") return <CoronaUpdates />;
-    return <NewsCardContainer />;
-  };
-
   return (
     <div className="bg-BACKGROUND_COLOR min-h-screen w-full flex flex-col items-center justify-center gap-3">
       <Hero />
       <BreakingNews />
       <Header activeTab={activeTab} onTabChange={setActiveTab} />
-      {renderContent()}
+      {activeTab === "Opinion" ? (
+        <Podcasts />
+      ) : activeTab === "Health" ? (
+        <CoronaUpdates />
+      ) : (
+        <NewsCardContainer />
+      )}
       <EditorsPicks />
     </div>
   );
