@@ -3,7 +3,6 @@ import axios from "axios";
 import { HeroArticle, HeroState, IconStatePayload } from "../types/heroSlice";
 import { BASE_URL } from "../constants/apiBaseUrl.ts";
 
-// Initial state
 export const initialState: HeroState = {
   heroArticle: null,
   isHearted: false,
@@ -12,7 +11,6 @@ export const initialState: HeroState = {
   loading: false,
 };
 
-// Async thunk with proper typing
 export const fetchHeroArticle = createAsyncThunk<HeroArticle, string>(
   "hero/fetchHeroArticle",
   async (section: string) => {
@@ -29,11 +27,10 @@ export const fetchHeroArticle = createAsyncThunk<HeroArticle, string>(
       time: new Date(article?.published_date).toLocaleTimeString(),
       author: article?.byline || "Unknown Author",
     }));
-    return articles[0]; // Return the first article
+    return articles[0];
   }
 );
 
-// Slice definition
 const heroSlice = createSlice({
   name: "hero",
   initialState,
@@ -65,6 +62,5 @@ const heroSlice = createSlice({
   },
 });
 
-// Export actions and reducer
 export const { setHeroIconState } = heroSlice.actions;
 export default heroSlice.reducer;
