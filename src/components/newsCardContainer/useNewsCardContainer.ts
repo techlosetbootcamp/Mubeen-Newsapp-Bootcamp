@@ -23,7 +23,7 @@ const useNewsCardContainer = () => {
   useEffect(() => {
     if (articles.length > 0) {
       setIconStates(
-        articles.map(() => ({
+        articles?.map(() => ({
           heart: false,
           share: false,
           save: false,

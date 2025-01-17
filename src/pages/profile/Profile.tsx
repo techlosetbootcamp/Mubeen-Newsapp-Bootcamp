@@ -46,7 +46,7 @@ const Profile: React.FC = () => {
         </div>
         <div className="bg-white shadow rounded-lg p-4 space-y-4">
           <h2 className="text-gray-600 font-semibold">Account settings</h2>
-          {ACTIVITY_DATA.map((item, index) => (
+          {ACTIVITY_DATA?.map((item, index) => (
             <div key={index} className="border-b last:border-0 pb-3">
               <div
                 className="flex justify-between items-center py-2 px-3 cursor-pointer hover:bg-gray-100 rounded"
@@ -65,7 +65,7 @@ const Profile: React.FC = () => {
         </div>
         <div className="bg-white shadow rounded-lg p-4 mt-6 space-y-4">
           <h2 className="text-gray-600 font-semibold">Help & Support</h2>
-          {HELP_SUPPORT_DATA.map((item, index) => (
+          {HELP_SUPPORT_DATA?.map((item, index) => (
             <div key={index} className="border-b last:border-0 pb-3">
               <div
                 className="flex justify-between items-center py-2 px-3 cursor-pointer hover:bg-gray-100 rounded"

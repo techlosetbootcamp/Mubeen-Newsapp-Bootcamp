@@ -69,7 +69,7 @@ const EditorsPicks: React.FC = () => {
         </div>
       ) : (
         <Slider {...settings}>
-          {articles.slice(0, 4).map((card, index) => (
+          {articles?.slice(0, 4)?.map((card, index) => (
             <div key={index} className="flex justify-center px-2 w-full">
               <div className="flex flex-col h-[376px] md:h-[171px] md:flex-row max-w-[100%] w-full bg-white rounded-md shadow-md overflow-hidden gap-4">
                 <div className="relative w-full md:w-[40%] h-full">

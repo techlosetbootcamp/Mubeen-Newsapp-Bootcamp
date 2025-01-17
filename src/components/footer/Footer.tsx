@@ -15,14 +15,14 @@ function Footer() {
       </div>
 
       <div className="hidden md:flex flex-col gap-y-2 text-white text-center md:text-left">
-        {policyText.map((name) => (
+        {policyText?.map((name) => (
           <p key={name.text}>{name.text}</p>
         ))}
       </div>
 
       <div className="flex flex-col items-center justify-around gap-6 text-white">
         <div className="flex flex-col md:flex-row gap-x-10">
-          {navLinks.map((link) => (
+          {navLinks?.map((link) => (
             <p key={link?.name} className="text-sm">
               {link?.name}
             </p>
@@ -30,7 +30,7 @@ function Footer() {
         </div>
 
         <div className="flex gap-8 md:gap-x-20">
-          {socialMediaLinks.map(({ icon: Icon, href }, index) => (
+          {socialMediaLinks?.map(({ icon: Icon, href }, index) => (
             <Link
               key={index}
               to={href}

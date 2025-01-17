@@ -24,7 +24,7 @@ export const fetchHeroArticle = createAsyncThunk<HeroArticle, string>(
     const response = await axios.get(
       `${BASE_URL}${section}.json?api-key=${apiKey}`
     );
-    const articles = response.data.results.map((article: HeroArticle) => ({
+    const articles = response.data.results?.map((article: HeroArticle) => ({
       image: article.multimedia?.[0]?.url || "",
       title: article?.title,
       description: article?.abstract,

@@ -46,7 +46,7 @@ const Search: React.FC = () => {
           {isSearching ? "Searching..." : "Search Results"}
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-2 max-w-full m-2">
-          {filteredArticles?.slice(0, visibleCards).map((article, index) => (
+          {filteredArticles?.slice(0, visibleCards)?.map((article, index) => (
             <NewsCard
               key={article.uri}
               article={article}

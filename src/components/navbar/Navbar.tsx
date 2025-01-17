@@ -26,7 +26,7 @@ function Navbar() {
       </div>
 
       <div className="hidden md:flex gap-x-10">
-        {NAVBAR_ROUTES.map((route) => (
+        {NAVBAR_ROUTES?.map((route) => (
           <div key={route.name} className="flex items-center gap-2">
             {activeRoute === route?.name && (
               <div className="h-2 w-2 bg-red-700 rounded-full" />
@@ -84,7 +84,7 @@ function Navbar() {
         </div>
 
         <div className="flex flex-col gap-y-4 mt-10">
-          {NAVBAR_ROUTES.map((route) => (
+          {NAVBAR_ROUTES?.map((route) => (
             <div key={route?.name} className="flex items-center gap-2">
               {activeRoute === route?.name && (
                 <div className="h-2 w-2 bg-red-700 rounded-full" />

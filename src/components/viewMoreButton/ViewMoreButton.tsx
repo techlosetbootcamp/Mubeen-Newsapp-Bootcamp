@@ -1,9 +1,5 @@
 import React from "react";
-
-interface ViewMoreButtonProps {
-  onClick: () => void;
-  isVisible: boolean;
-}
+import { ViewMoreButtonProps } from "../../constants/types";
 
 const ViewMoreButton: React.FC<ViewMoreButtonProps> = ({
   onClick,

@@ -29,8 +29,8 @@ const NewsCardContainer: React.FC = () => {
           </div>
         ) : (
           articles
-            .slice(0, visibleCards)
-            .map((article, index) => (
+            ?.slice(0, visibleCards)
+            ?.map((article, index) => (
               <NewsCard
                 key={index}
                 article={article}

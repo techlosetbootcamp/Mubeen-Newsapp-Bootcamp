@@ -43,7 +43,7 @@ export const fetchNews = createAsyncThunk(
       const response = await axios.get(
         `${BASE_URL}${category || "us"}.json?api-key=${apiKey}`
       );
-      const formattedArticles = response.data.results.map(
+      const formattedArticles = response.data.results?.map(
         (article: Article) => ({
           uri: article?.uri || "",
           image: article?.multimedia?.[0]?.url || "",
@@ -70,7 +70,7 @@ export const fetchSearchResults = createAsyncThunk(
       const response = await axios.get(
         `${BASE_URL}articlesearch.json?q=${query}&api-key=${apiKey}`
       );
-      const formattedArticles = response.data.response.docs.map(
+      const formattedArticles = response.data.response.docs?.map(
         (article: Article) => {
           const multimedia = article.multimedia?.[0];
           return {
@@ -140,7 +140,7 @@ const newsSlice = createSlice({
       })
       .addCase(fetchNews.fulfilled, (state, action) => {
         state.filteredArticles = action.payload;
-        state.iconStates = action.payload.map(() => ({
+        state.iconStates = action.payload?.map(() => ({
           heart: false,
           share: false,
           save: false,

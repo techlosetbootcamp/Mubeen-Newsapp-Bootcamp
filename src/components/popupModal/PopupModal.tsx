@@ -6,15 +6,7 @@ import { HiArrowUpTray } from "react-icons/hi2";
 import { CiBookmark } from "react-icons/ci";
 import { IoBookmark } from "react-icons/io5";
 import usePopupModal from "./usePopupModal.ts";
-
-interface PopupModalProps {
-  article: {
-    image?: string;
-    title?: string;
-    description?: string;
-  } | null;
-  onClose: () => void;
-}
+import { PopupModalProps } from "../../constants/types.ts";
 
 const PopupModal: React.FC<PopupModalProps> = ({ article, onClose }) => {
   const { iconState, onToggleIcon } = usePopupModal();

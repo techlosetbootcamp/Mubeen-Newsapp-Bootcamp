@@ -2,14 +2,7 @@ import React from "react";
 import { CiHeart } from "react-icons/ci";
 import { CiBookmark } from "react-icons/ci";
 import { HiArrowUpTray } from "react-icons/hi2";
-import { FormattedArticle } from "../../types/newsSlice.ts";
-
-interface NewsCardProps {
-  article: FormattedArticle;
-  iconState?: { heart: boolean; share: boolean; save: boolean };
-  onToggleIcon: (icon: "heart" | "share" | "save") => void;
-  onClick: () => void;
-}
+import { NewsCardProps } from "../../constants/types";
 
 const NewsCard: React.FC<NewsCardProps> = ({
   article,

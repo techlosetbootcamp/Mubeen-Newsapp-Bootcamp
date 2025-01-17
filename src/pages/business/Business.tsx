@@ -24,17 +24,19 @@ const Business: React.FC = () => {
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filteredArticles?.length > 0 ? (
-              filteredArticles?.slice(0, visibleCards).map((article, index) => (
-                <NewsCard
-                  key={index}
-                  article={article}
-                  onClick={() => setSelectedArticle(article)}
-                  iconState={{ heart: false, share: false, save: false }}
-                  onToggleIcon={(icon) => {
-                    return icon;
-                  }}
-                />
-              ))
+              filteredArticles
+                ?.slice(0, visibleCards)
+                ?.map((article, index) => (
+                  <NewsCard
+                    key={index}
+                    article={article}
+                    onClick={() => setSelectedArticle(article)}
+                    iconState={{ heart: false, share: false, save: false }}
+                    onToggleIcon={(icon) => {
+                      return icon;
+                    }}
+                  />
+                ))
             ) : (
               <p className="text-center text-gray-500">No articles available</p>
             )}

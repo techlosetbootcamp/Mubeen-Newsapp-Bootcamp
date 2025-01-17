@@ -1,11 +1,6 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-
-interface SearchBarProps {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-}
+import { SearchBarProps } from "../../constants/types";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   value,

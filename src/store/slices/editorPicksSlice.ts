@@ -16,7 +16,7 @@ export const fetchEditorPicks = createAsyncThunk(
 
     const response = await axios.get(`${BASE_URL}arts.json?api-key=${apiKey}`);
 
-    return response.data.results.map((article: Article) => ({
+    return response.data.results?.map((article: Article) => ({
       image: article.multimedia?.[0]?.url || "",
       title: article?.title,
       description: article?.abstract,

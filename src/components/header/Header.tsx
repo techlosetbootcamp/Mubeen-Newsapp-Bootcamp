@@ -1,11 +1,7 @@
 import React from "react";
 import { CiViewTable } from "react-icons/ci";
 import { Link } from "react-router-dom";
-
-interface HeaderProps {
-  activeTab: string;
-  onTabChange: (tab: string) => void;
-}
+import { HeaderProps } from "../../constants/types";
 
 const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
   return (
