@@ -21,7 +21,13 @@ const Search: React.FC = () => {
     visibleCards,
     setVisibleCards,
     dispatch,
+    error, // Added error from useSearch
+    loading, // Added loading from useSearch
   } = useSearch();
+
+  // Log data for debugging
+  console.log("Rendering Search - Filtered Articles:", filteredArticles);
+  console.log("Icon States:", iconStates);
 
   return (
     <div className="bg-PrimaryBackground min-h-screen w-full flex flex-col gap-3 lg:px-20">
@@ -45,12 +51,21 @@ const Search: React.FC = () => {
         >
           {isSearching ? "Searching..." : "Search Results"}
         </div>
+        {/* Display loading and error states */}
+        {loading && <div className="m-2 text-gray-500">Loading...</div>}
+        {error && <div className="text-red-500 m-2">{error}</div>}
+        {/* Handle empty results */}
+        {!loading && !error && filteredArticles.length === 0 && (
+          <div className="m-2 text-gray-500">No results found.</div>
+        )}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-2 max-w-full m-2">
           {filteredArticles?.slice(0, visibleCards)?.map((article, index) => (
             <NewsCard
               key={article.uri}
               article={article}
-              iconState={iconStates[index]}
+              iconState={
+                iconStates[index] || { heart: false, share: false, save: false }
+              } // Fallback for undefined iconState
               onToggleIcon={(icon) => dispatch(setIconState({ index, icon }))}
               onClick={() => dispatch(setSelectedArticle(article))}
             />

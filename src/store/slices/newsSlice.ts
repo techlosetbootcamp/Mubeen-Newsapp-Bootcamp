@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import {
   Article,
@@ -7,7 +6,9 @@ import {
   IconState,
   NewsState,
 } from "../../types/newsSlice.ts";
-import { BASE_URL } from "../../constants/apiBaseUrl.ts";
+import { BASE_URL, SEARCH_BASE_URL } from "../../constants/apiBaseUrl.ts";
+
+console.log("Base url ============>", BASE_URL);
 
 const initialState: NewsState = {
   searchQuery: "",
@@ -34,10 +35,16 @@ const initialState: NewsState = {
   isSearching: false,
 };
 
+// Fetch general news (e.g., category-based)
 export const fetchNews = createAsyncThunk(
   "news/fetchNews",
-  async (category: string) => {
-    const apiKey = process.env?.REACT_APP_TOP_STORIES_API_KEY || "";
+  async (category: string, { rejectWithValue }) => {
+    const apiKey = process.env.REACT_APP_TOP_STORIES_API_KEY || "";
+    console.log("api key -========>", apiKey);
+
+    if (!apiKey) {
+      return rejectWithValue("API key is missing for fetchNews");
+    }
 
     try {
       const response = await axios.get(
@@ -46,29 +53,38 @@ export const fetchNews = createAsyncThunk(
       const formattedArticles = response.data.results?.map(
         (article: Article) => ({
           uri: article?.uri || "",
-          image: article?.multimedia?.[0]?.url || "",
-          title: article?.title || "",
-          description: article?.abstract || "",
+          image:
+            article?.multimedia?.[0]?.url ||
+            "https://cdn.vectorstock.com/i/500p/33/47/no-photo-available-icon-default-image-symbol-vector-40343347.jpg",
+          title: article?.title || "Currently the title is not available",
+          description:
+            article?.abstract || "Description is not Added By Author",
           time: new Date(article?.published_date).toLocaleTimeString() || "",
           author: article?.byline || "Unknown Author",
         })
       );
       return formattedArticles;
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching news:", error);
-      throw null;
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch news"
+      );
     }
   }
 );
 
+// Fetch search results based on query
 export const fetchSearchResults = createAsyncThunk(
   "news/fetchSearchResults",
-  async (query: string) => {
-    const apiKey = process.env?.REACT_APP_TOP_STORIES_API_SEARCH_KEY || "";
+  async (query: string, { rejectWithValue }) => {
+    const apiKey = process.env.REACT_APP_TOP_STORIES_API_SEARCH_KEY || "";
+    if (!apiKey) {
+      return rejectWithValue("API key is missing for fetchSearchResults");
+    }
 
     try {
       const response = await axios.get(
-        `${BASE_URL}articlesearch.json?q=${query}&api-key=${apiKey}`
+        `${SEARCH_BASE_URL}articlesearch.json?q=${query}&api-key=${apiKey}`
       );
       const formattedArticles = response.data.response.docs?.map(
         (article: Article) => {
@@ -77,7 +93,7 @@ export const fetchSearchResults = createAsyncThunk(
             uri: article.uri || "",
             image: multimedia
               ? `https://www.nytimes.com/${multimedia.url}`
-              : "",
+              : "https://cdn.vectorstock.com/i/500p/33/47/no-photo-available-icon-default-image-symbol-vector-40343347.jpg",
             title: article.headline.main || "",
             description: article.abstract || "",
             time: new Date(article.pub_date).toLocaleTimeString() || "",
@@ -85,10 +101,12 @@ export const fetchSearchResults = createAsyncThunk(
           };
         }
       );
-      return formattedArticles;
-    } catch (error) {
+      return formattedArticles || []; // Return empty array if no results
+    } catch (error: any) {
       console.error("Error fetching search results:", error);
-      throw error;
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch search results"
+      );
     }
   }
 );
@@ -116,9 +134,12 @@ const newsSlice = createSlice({
           ...state.iconStates[index],
           [icon]: !state.iconStates[index][icon],
         };
+      } else {
+        // Initialize if index doesn’t exist
+        state.iconStates[index] = { heart: false, share: false, save: false };
+        state.iconStates[index][icon] = true;
       }
     },
-
     setIconStates: (state, action: PayloadAction<IconState[]>) => {
       state.iconStates = action.payload;
     },
@@ -133,14 +154,15 @@ const newsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Fetch News
     builder
       .addCase(fetchNews.pending, (state) => {
         state.loading = true;
-        state.isSearching = true;
+        state.error = null; // Clear previous errors
       })
       .addCase(fetchNews.fulfilled, (state, action) => {
         state.filteredArticles = action.payload;
-        state.iconStates = action.payload?.map(() => ({
+        state.iconStates = action.payload.map(() => ({
           heart: false,
           share: false,
           save: false,
@@ -149,26 +171,35 @@ const newsSlice = createSlice({
         state.isSearching = false;
       })
       .addCase(fetchNews.rejected, (state, action) => {
-        console.error("Error fetching sports news:", action.error);
         state.loading = false;
         state.isSearching = false;
-        state.error = action.error.message || "Failed to load news";
-        state.selectedArticle = null;
+        state.error = action.payload as string;
+        state.filteredArticles = []; // Clear articles on error
       });
 
+    // Fetch Search Results
     builder
       .addCase(fetchSearchResults.pending, (state) => {
         state.loading = true;
         state.isSearching = true;
+        state.error = null; // Clear previous errors
       })
       .addCase(fetchSearchResults.fulfilled, (state, action) => {
+        console.log("Search Results Fetched:", action.payload); // Debug log
         state.filteredArticles = action.payload;
+        state.iconStates = action.payload.map(() => ({
+          heart: false,
+          share: false,
+          save: false,
+        }));
         state.loading = false;
+        state.isSearching = false;
       })
       .addCase(fetchSearchResults.rejected, (state, action) => {
-        console.error("Error fetching search results:", action.error);
         state.loading = false;
-        state.error = action.error.message || "Failed to load search results";
+        state.isSearching = false; // Reset isSearching
+        state.error = action.payload as string;
+        state.filteredArticles = []; // Clear articles on error
       });
   },
 });

@@ -1,5 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store.ts";
+import { useAppDispatch, useAppSelector } from "../../store/store.ts";
 import { RootState } from "../../store/store.ts";
 import { useState, useEffect } from "react";
 import { IconState } from "../../types/newsSlice.ts";
@@ -7,8 +6,8 @@ import { Article } from "../../types/newsSlice.ts";
 import { fetchTopStories } from "../../store/slices/topStoriesSlice.ts";
 
 const useNewsCardContainer = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { articles, loading, error } = useSelector(
+  const dispatch = useAppDispatch();
+  const { articles, loading, error } = useAppSelector(
     (state: RootState) => state.topStories
   );
 

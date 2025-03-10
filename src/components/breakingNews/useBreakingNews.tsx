@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
+import { RootState, useAppSelector } from "../../store/store.ts";
 import { useEffect } from "react";
 import { fetchBreakingNews } from "../../store/slices/breakingNewsSlice.ts";
+import { useAppDispatch } from "../../store/store.ts";
 
 const useBreakingNews = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { breakingNews, loading, error } = useSelector(
+  const dispatch = useAppDispatch();
+  const { breakingNews, loading, error } = useAppSelector(
     (state: RootState) => state.breakingNews
   );
 

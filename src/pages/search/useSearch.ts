@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store.ts";
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from "../../store/store.ts";
 import {
   fetchNews,
   fetchSearchResults,
@@ -8,19 +11,23 @@ import {
 } from "../../store/slices/newsSlice.ts";
 
 const useSearch = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const {
     searchQuery,
     filteredArticles,
     iconStates,
     selectedArticle,
     isSearching,
-  } = useSelector((state: RootState) => state.news);
+    error,
+    loading,
+  } = useAppSelector((state: RootState) => state.news);
   const [visibleCards, setVisibleCards] = useState(6);
 
   useEffect(() => {
-    dispatch(fetchNews("world"));
-  }, [dispatch]);
+    if (!searchQuery.trim()) {
+      dispatch(fetchNews("world"));
+    }
+  }, [dispatch, searchQuery]);
 
   const handleSearch = useCallback(() => {
     if (searchQuery.trim()) {
@@ -47,6 +54,8 @@ const useSearch = () => {
     visibleCards,
     setVisibleCards,
     dispatch,
+    error, // Return error
+    loading, // Return loading
   };
 };
 

@@ -20,12 +20,14 @@ export const fetchHeroArticle = createAsyncThunk<HeroArticle, string>(
   async (section: string) => {
     const apiKey =
       process.env?.REACT_APP_TOP_STORIES_API_KEY ||
-      "kzoxGuCiCSr7YVhGimt0gsmRkjtexpui";
+      "Trying to Fetch the Top Stories";
     const response = await axios.get(
       `${BASE_URL}${section}.json?api-key=${apiKey}`
     );
     const articles = response.data.results?.map((article: HeroArticle) => ({
-      image: article.multimedia?.[0]?.url || "",
+      image:
+        article.multimedia?.[0]?.url ||
+        "https://cdn.vectorstock.com/i/500p/33/47/no-photo-available-icon-default-image-symbol-vector-40343347.jpg",
       title: article?.title,
       description: article?.abstract,
       time: new Date(article?.published_date).toLocaleTimeString(),

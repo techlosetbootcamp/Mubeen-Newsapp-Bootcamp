@@ -17,7 +17,9 @@ export const fetchTopStories = createAsyncThunk(
     const response = await axios.get(`${BASE_URL}world.json?api-key=${apiKey}`);
 
     return response.data.results?.map((article: Article) => ({
-      image: article.multimedia?.[0]?.url || "",
+      image:
+        article.multimedia?.[0]?.url ||
+        "https://cdn.vectorstock.com/i/500p/33/47/no-photo-available-icon-default-image-symbol-vector-40343347.jpg",
       title: article?.title,
       description: article?.abstract,
       time: new Date(article?.published_date).toLocaleTimeString(),

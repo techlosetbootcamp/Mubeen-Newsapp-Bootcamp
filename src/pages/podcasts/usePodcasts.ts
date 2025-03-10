@@ -1,12 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store.ts";
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from "../../store/store.ts";
 import { useEffect, useState } from "react";
 import { FormattedArticle } from "../../types/newsSlice.ts";
 import { fetchNews } from "../../store/slices/newsSlice.ts";
 
 const usePodcasts = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const { filteredArticles, loading } = useSelector(
+  const dispatch = useAppDispatch();
+  const { filteredArticles, loading } = useAppSelector(
     (state: RootState) => state.news
   );
   const [visibleCards, setVisibleCards] = useState(6);
