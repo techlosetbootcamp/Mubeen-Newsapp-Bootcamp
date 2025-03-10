@@ -26,9 +26,6 @@ const Search: React.FC = () => {
   } = useSearch();
 
   // Log data for debugging
-  console.log("Rendering Search - Filtered Articles:", filteredArticles);
-  console.log("Icon States:", iconStates);
-
   return (
     <div className="bg-PrimaryBackground min-h-screen w-full flex flex-col gap-3 lg:px-20">
       <div className="flex flex-col items-center justify-center mt-[160px]">
