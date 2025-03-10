@@ -1,12 +1,12 @@
 import { useAppDispatch, useAppSelector } from "../../store/store.ts";
 import { RootState } from "../../store/store.ts";
 import { useState, useEffect } from "react";
-import { FormattedArticle } from "../../types/newsSlice.ts";
+import { FormattedArticle, NewsState } from "../../types/newsSlice.ts";
 import { fetchNews } from "../../store/slices/newsSlice.ts";
 
 const useBusiness = () => {
   const dispatch = useAppDispatch();
-  const { filteredArticles, loading } = useAppSelector(
+  const { filteredArticles, loading } = useAppSelector<NewsState>(
     (state: RootState) => state.news
   );
   const [visibleCards, setVisibleCards] = useState(6);

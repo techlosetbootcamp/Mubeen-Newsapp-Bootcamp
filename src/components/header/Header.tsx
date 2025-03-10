@@ -1,13 +1,16 @@
-import React from "react";
+import React, { use } from "react";
 import { CiViewTable } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { HeaderProps } from "../../constants/types";
+import useHeader from "./useHeader.ts";
 
 const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
+  const { TABS } = useHeader();
+
   return (
     <div className="bg-white w-full md:h-[54px] h-auto flex items-center justify-between px-4 lg:max-w-[1180px] md:mx-10">
       <div className="flex gap-x-5 font-semibold">
-        {["Latest Stories", "Opinion", "Health"].map((tab) => (
+        {TABS.map((tab) => (
           <Link
             key={tab}
             to="#"
