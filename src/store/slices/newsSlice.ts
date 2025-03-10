@@ -8,8 +8,6 @@ import {
 } from "../../types/newsSlice.ts";
 import { BASE_URL, SEARCH_BASE_URL } from "../../constants/apiBaseUrl.ts";
 
-console.log("Base url ============>", BASE_URL);
-
 const initialState: NewsState = {
   searchQuery: "",
   filteredArticles: [],
@@ -40,7 +38,6 @@ export const fetchNews = createAsyncThunk(
   "news/fetchNews",
   async (category: string, { rejectWithValue }) => {
     const apiKey = process.env.REACT_APP_TOP_STORIES_API_KEY || "";
-    console.log("api key -========>", apiKey);
 
     if (!apiKey) {
       return rejectWithValue("API key is missing for fetchNews");
@@ -185,7 +182,6 @@ const newsSlice = createSlice({
         state.error = null; // Clear previous errors
       })
       .addCase(fetchSearchResults.fulfilled, (state, action) => {
-        console.log("Search Results Fetched:", action.payload); // Debug log
         state.filteredArticles = action.payload;
         state.iconStates = action.payload.map(() => ({
           heart: false,
